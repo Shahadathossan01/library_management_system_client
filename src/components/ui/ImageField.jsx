@@ -5,8 +5,7 @@ const ImageField = ({title,img,width='100px',height='100px',rounded='',sx={}}) =
     return (
         <Box
             component='img'
-            srcSet={`${img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            src={`${img}?w=248&fit=crop&auto=format`}
+            src={img}
             alt={title}
             loading="lazy"
             width={width}
