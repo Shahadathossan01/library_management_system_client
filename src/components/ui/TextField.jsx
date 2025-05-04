@@ -1,10 +1,11 @@
+import { Typography } from "@mui/material";
 
 
-const TextField = () => {
+const TextField = ({variant='h6',sx={},children,...rest}) => {
     return (
-        <div>
-            <h1>This is text field</h1>
-        </div>
+        <Typography variant={variant} sx={{...sx}} {...rest}>
+            {children}
+        </Typography>
     );
 };
 
