@@ -1,10 +1,9 @@
+import { Button } from '@mui/material';
 import React from 'react';
 
-const LinkField = () => {
+const LinkField = ({href='',children}) => {
     return (
-        <div>
-            <h1>link field</h1>
-        </div>
+        <Button href={href}>{children}</Button>
     );
 };
 
