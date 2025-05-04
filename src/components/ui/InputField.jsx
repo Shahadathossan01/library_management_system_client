@@ -1,11 +1,17 @@
 import React from 'react';
+import TextField from '@mui/material/TextField';
 
-const InputField = () => {
-    return (
-        <div>
-            <h1>input field</h1>
-        </div>
-    );
-};
-
-export default InputField;
+export default function InputField({value,onChange,name,label='outlined',variant = 'outlined',inputRef,...rest}) {
+  return (
+    <TextField
+      id={name}
+      label={label}
+      variant={variant}
+      name={name}
+      value={value}
+      onChange={onChange}
+      inputRef={inputRef}
+      {...rest}
+    />
+  );
+}
