@@ -1,10 +1,8 @@
+import { Button } from "@mui/material";
 
-
-const ButtonField = () => {
+const ButtonField = ({variant='contained',disabled=false,size='medium',color='success',value='button'}) => {
     return (
-        <div>
-            
-        </div>
+        <Button variant={variant} disabled={disabled} size={size} color={color}>{value}</Button>
     );
 };
 
