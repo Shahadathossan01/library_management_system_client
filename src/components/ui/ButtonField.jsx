@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 
-const ButtonField = ({variant='contained',disabled=false,size='medium',color='success',value='button'}) => {
+const ButtonField = ({variant='contained',disabled=false,size='medium',color='success',children,type='submit'}) => {
     return (
-        <Button variant={variant} disabled={disabled} size={size} color={color}>{value}</Button>
+        <Button type={type} variant={variant} disabled={disabled} size={size} color={color}>{children}</Button>
     );
 };
 

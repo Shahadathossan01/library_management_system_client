@@ -116,7 +116,7 @@ function Navbar() {
                 </NavLink>
               ))}
 
-              <NavLink style={{textDecoration:'none',color:'black'}} onClick={handleCloseNavMenu}>
+              <NavLink to='/login' style={{textDecoration:'none',color:'black'}} onClick={handleCloseNavMenu}>
                     <MenuItem>
                         <Typography sx={{ textAlign: 'center' }}>Login</Typography>
                     </MenuItem>
@@ -152,7 +152,7 @@ function Navbar() {
               </NavLink>
             ))}
 
-              <NavLink style={{textDecoration:'none'}}>
+              <NavLink to='/login' style={{textDecoration:'none'}}>
                     <Button
                         onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: 'white', display: 'block' }}

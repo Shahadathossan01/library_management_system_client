@@ -7,10 +7,12 @@ import '@fontsource/roboto/700.css';
 
 import App from './app/App'
 import { BrowserRouter } from 'react-router';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ToastContainer />
     <BrowserRouter>
       <App />
     </BrowserRouter>
