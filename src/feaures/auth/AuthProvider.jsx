@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { createContext } from "react";
+import {jwtDecode} from 'jwt-decode';
 
 const initialState={
     access_token: localStorage.getItem('access_token') || null,
@@ -10,11 +11,13 @@ const reducer=(state,action)=>{
         case 'REGISTER':
         case 'LOGIN':
             localStorage.setItem('access_token',action.payload)
+            localStorage.setItem('user',JSON.stringify(jwtDecode(action.payload)))
             return {access_token:action.payload}
 
         case 'LOGOUT':
             console.log('logout')
             localStorage.removeItem('access_token')
+            localStorage.removeItem('user')
             return {access_token: null}
         default:
             throw new Error('Invalid action type')

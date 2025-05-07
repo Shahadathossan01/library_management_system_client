@@ -1,4 +1,5 @@
 import { Box, Card, CardContent, Typography, CardMedia, Button, Stack } from "@mui/material";
+import { NavLink } from "react-router";
 
 const BookCard = ({ book }) => {
   const { name, authorName, image, inStock, summary, status } = book;
@@ -43,9 +44,11 @@ const BookCard = ({ book }) => {
           <Button variant="contained" size="small" fullWidth>
             Book Issue
           </Button>
-          <Button variant="outlined" size="small" fullWidth>
-            Details
-          </Button>
+          <NavLink to={`/bookDetails/${book._id}`}>
+            <Button variant="outlined" size="small" fullWidth>
+              Details
+            </Button>
+          </NavLink>
         </Stack>
       </Box>
     </Card>

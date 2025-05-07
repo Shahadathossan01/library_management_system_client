@@ -20,8 +20,24 @@ const getBooks=async(params)=>{
    }
 }
 
+const getBookById=async({id,reviews})=>{
+
+    try{
+        let url=`${apiUrl}/books/${id}`
+        if(reviews){
+            url +=`?expand=reviews`
+        }
+        const {data}=await axios.get(url)
+
+        return data
+    }catch(error){
+        console.log(error)
+    }
+}
+
 
 
 export {
-    getBooks
+    getBooks,
+    getBookById
 }
