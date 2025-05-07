@@ -40,7 +40,7 @@ export const useAuthContext=()=>{
     }
 
     return {
-        access_token:state.access_token,
+        state,
         register,
         login,
         logout

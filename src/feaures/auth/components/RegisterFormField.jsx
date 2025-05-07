@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 const RegisterFormField = () => {
     const {control,handleSubmit,formState:{errors}}=useForm()
-    const {access_token,register}=useAuthContext()
+    const {register}=useAuthContext()
     const navigate=useNavigate()
     const onSubmit=async(data)=>{
       const res=await register({...data})

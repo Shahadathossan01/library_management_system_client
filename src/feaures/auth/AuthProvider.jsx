@@ -13,6 +13,7 @@ const reducer=(state,action)=>{
             return {access_token:action.payload}
 
         case 'LOGOUT':
+            console.log('logout')
             localStorage.removeItem('access_token')
             return {access_token: null}
         default:

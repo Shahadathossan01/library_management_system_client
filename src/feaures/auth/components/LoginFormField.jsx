@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 const LoginFormField = () => {
     const {control,handleSubmit,formState:{errors}}=useForm()
-    const {access_token,login}=useAuthContext()
+    const {login}=useAuthContext()
     const navigate=useNavigate()
     const onSubmit=async(data)=>{
       const res=await login({...data})

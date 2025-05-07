@@ -4,17 +4,7 @@ import PageHeader from './components/PageHeader';
 import { AuthProvider } from './AuthProvider';
 import RegisterFormField from './components/RegisterFormField';
 
-export const Register = () => {
-    return (
-      <AuthProvider>
-            <RegisterContent />
-      </AuthProvider>  
-    );
-};
-
-Register.displayName='Register'
-
-const RegisterContent=()=>{
+export const Register=()=>{
 
     return(
         <Box sx={{textAlign:'center',mt:10}}>
@@ -24,4 +14,4 @@ const RegisterContent=()=>{
     )
 }
 
-RegisterContent.displayName='RegisterContent'
+Register.displayName='Register'

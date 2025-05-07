@@ -1,10 +1,14 @@
 import React from 'react';
+import Header from './components/Header';
+import { Box } from '@mui/material';
+import { BookManagement } from '../book/BookManagement';
 
 const Home = () => {
     return (
-        <div>
-            <h1>home</h1>
-        </div>
+        <Box>
+            <Header></Header>
+            <BookManagement></BookManagement>
+        </Box>
     );
 };
 

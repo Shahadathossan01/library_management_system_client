@@ -2,13 +2,15 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
-export default function PaginationControlled({page=1,handleChange,count=10}) {
- 
+export default function PaginationControlled({ page = 1, handleChange, count = 10 }) {
   return (
-    <Stack spacing={2}>
-      <Typography>Page: {page}</Typography>
-      <Pagination count={count} page={page} onChange={handleChange} />
-    </Stack>
+    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', my: 2 }}>
+      <Stack spacing={0} alignItems="flex-end">
+        <Typography>Page: {page}</Typography>
+        <Pagination count={count} page={page} onChange={handleChange} />
+      </Stack>
+    </Box>
   );
 }

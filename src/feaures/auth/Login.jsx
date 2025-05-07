@@ -4,17 +4,7 @@ import PageHeader from './components/PageHeader';
 import { AuthProvider } from './AuthProvider';
 import LoginFormField from './components/LoginFormField';
 
-export const Login = () => {
-    return (
-      <AuthProvider>
-            <LoginContent />
-      </AuthProvider>  
-    );
-};
-
-Login.displayName='Login'
-
-const LoginContent=()=>{
+export const Login=()=>{
 
     return(
         <Box sx={{textAlign:'center',mt:10}}>
@@ -24,4 +14,4 @@ const LoginContent=()=>{
     )
 }
 
-LoginContent.displayName='LoginContent'
+Login.displayName='Login'

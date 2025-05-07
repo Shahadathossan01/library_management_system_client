@@ -14,6 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { NavLink } from 'react-router';
+import { toast } from 'react-toastify';
+import { useAuthContext } from '../../feaures/auth/hooks/useAuthContext';
+import { AuthProvider } from '../../feaures/auth/AuthProvider';
 
 const pages=[
     {
@@ -30,8 +33,10 @@ const pages=[
     }
 ]
 
-function Navbar() {
+export const Navbar=()=>{
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const {state,logout}=useAuthContext()
+  const {access_token}=state
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,6 +45,12 @@ function Navbar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const handleLogout=()=>{
+    logout()
+    handleCloseNavMenu()
+    toast.success('Logout Successfully')
+  }
 
 
   return (
@@ -121,7 +132,7 @@ function Navbar() {
                         <Typography sx={{ textAlign: 'center' }}>Login</Typography>
                     </MenuItem>
               </NavLink>
-              <NavLink style={{textDecoration:'none',color:'black'}} onClick={handleCloseNavMenu}>
+              <NavLink style={{textDecoration:'none',color:'black'}} onClick={handleLogout}>
                     <MenuItem>
                         <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
                     </MenuItem>
@@ -152,22 +163,28 @@ function Navbar() {
               </NavLink>
             ))}
 
-              <NavLink to='/login' style={{textDecoration:'none'}}>
+            {
+              access_token? (
+                  <NavLink onClick={handleLogout} style={{textDecoration:'none'}}>
+                      <Button
+                          sx={{ my: 2, color: 'white', display: 'block' }}
+                      >
+                          Logout
+                      </Button>
+                </NavLink>
+              ) : (
+                <NavLink to='/login' style={{textDecoration:'none'}}>
                     <Button
-                        onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: 'white', display: 'block' }}
                     >
                         Login
                     </Button>
               </NavLink>
-              <NavLink style={{textDecoration:'none'}}>
-                    <Button
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Logout
-                    </Button>
-              </NavLink>
+              )
+            }
+
+              
+              
 
             <Box sx={{ flexGrow: 0 }}>
               <IconButton sx={{ p: 2 }}>
@@ -181,4 +198,5 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
+
+Navbar.displayName='Navbar'
