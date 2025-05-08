@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Avatar, Box, Typography } from '@mui/material';
 import React from 'react';
 import TextField from '../../../components/ui/TextField';
 import ImageField from '../../../components/ui/ImageField';
@@ -34,7 +34,7 @@ const EditReview=({id})=>{
 }
 
 
-const ReviewListItem = ({review,index}) => {
+const ReviewListItem = ({review}) => {
     const currentUser = JSON.parse(localStorage.getItem('user'));
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -42,8 +42,13 @@ const ReviewListItem = ({review,index}) => {
     const {deleteReviewItem}=useReviewContext()
     return (
         <Box sx={{display:'flex',gap:'20px',mt:8}}>
-            <TextField>{index+1}</TextField>
-            <ImageField height='50px' width='50px' rounded='50px' img={review.user.profile.avator} />
+            {
+                review?.user?.profile?.avator ? (
+                    <ImageField height='50px' width='50px' rounded='50px' img={review.user.profile.avator} />
+                ) : (
+                    <Avatar></Avatar>
+                )
+            }
             <Box sx={{display:'flex',flexDirection:'column',justifyContent:'center'}}>
                 <TextField variant='subtitle2'>{review.user.username?review.user.username: review.user.profile.firstName + ' ' + review.user.profile.lastName}</TextField>
                 <TextField variant='body2'>{review.content}</TextField>
@@ -52,7 +57,7 @@ const ReviewListItem = ({review,index}) => {
                 currentUser?._id ===review.user._id &&  (
                     <Box>
                 <IconButtonField><EditIcon onClick={handleOpen}></EditIcon></IconButtonField>
-                <IconButtonField><DeleteIcon onClick={()=>deleteReviewItem({id:review?._id})}></DeleteIcon></IconButtonField>
+                <IconButtonField><DeleteIcon color='warning' onClick={()=>deleteReviewItem({id:review?._id})}></DeleteIcon></IconButtonField>
                 <ModalUi open={open} handleClose={handleClose}>
                     <EditReview id={review?._id}></EditReview>
                 </ModalUi>

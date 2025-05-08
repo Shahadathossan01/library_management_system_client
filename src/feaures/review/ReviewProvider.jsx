@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react"
 const initialState={
     reviews:[],
     page:1,
-    limit:10,
+    limit:2,
     pagination:{},
     updatedData:null,
     deletedData:null,
@@ -35,6 +35,12 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 createData:action.payload
+            }
+
+        case 'UPDATE_PAGE':
+            return {
+                ...state,
+                page: action.payload
             }
     }
 }

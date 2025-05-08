@@ -14,8 +14,8 @@ const ReviewLists = ({reviews,isLoading,error}) => {
                 reviews?.length===0?(
                     <NoData></NoData>
                 ) : (
-                    reviews?.map((review,index)=>(
-                        <ReviewListItem key={review._id} review={review} index={index}></ReviewListItem>
+                    reviews?.map((review)=>(
+                        <ReviewListItem key={review._id} review={review}></ReviewListItem>
                     ))
                 )
             }

@@ -1,7 +1,7 @@
 import axios from "axios"
 const apiUrl=import.meta.env.VITE_API_URL
 const token=localStorage.getItem('access_token')
-
+console.log(token)
 const getReviewById=async({id,page=1,limit=10})=>{
     try{
         const {data}=await axios.get(`${apiUrl}/books/${id}/reviews?page=${page}&limit=${limit}`)

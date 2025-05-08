@@ -7,7 +7,6 @@ import LoadingUi from "../../components/shared/LoadingUi";
 import ShowError from "../../components/shared/ShowError";
 import SkeletonUi from "../../components/shared/SkeletonUi";
 import PaginationControlled from "../../components/shared/PaginationControlled";
-import { useState } from "react";
 
 export const BookManagement = () => {
     return (
@@ -22,13 +21,14 @@ BookManagement.displayName='BookManagement'
 const BookManagementContent=()=>{
     const {isLoading,error}=useFetchBooks()
     const {books,pagination,updatePage}=useBookContext()
-    const {totalItems,totalPage}=pagination
 
-    const [page,setPage]=useState(1)
+    if(!pagination) return <LoadingUi></LoadingUi>
+
+    const {page,totalPage}=pagination
 
     const handleChange=(event,value)=>{
-        setPage(value)
-        updatePage(page)
+        const numberValue=Number(value)
+        updatePage(numberValue)
     }
 
     if(isLoading) return <LoadingUi></LoadingUi>
@@ -37,7 +37,7 @@ const BookManagementContent=()=>{
     return(
         <Box>
             <BookLists isLoading={isLoading} books={books}></BookLists>
-            <PaginationControlled page={page} count={totalPage} handleChange={handleChange}></PaginationControlled>
+            <PaginationControlled page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>
         </Box>
     )
 }
