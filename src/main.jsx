@@ -9,7 +9,7 @@ import App from './app/App'
 import { BrowserRouter } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
-import { AuthProvider } from './feaures/auth/AuthProvider';
+import { AuthProvider } from './features/auth/AuthProvider';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

@@ -41,9 +41,11 @@ const BookCard = ({ book }) => {
 
       <Box sx={{ p: 2 }}>
         <Stack direction="row" spacing={1} justifyContent="space-between">
-          <Button variant="contained" size="small" fullWidth>
-            Book Issue
-          </Button>
+          <NavLink to={`/bookIssueFrom/${book._id}`}>
+            <Button variant="contained" size="small" fullWidth>
+              Book Issue
+            </Button>
+          </NavLink>
           <NavLink to={`/bookDetails/${book._id}`}>
             <Button variant="outlined" size="small" fullWidth>
               Details

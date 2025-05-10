@@ -2,6 +2,7 @@ import { createContext, useReducer } from "react"
 
 const initialState={
     books:[],
+    book:null,
     page:1,
     limit:8,
     sort_type:'dsc',
@@ -22,6 +23,12 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 page: action.payload
+            }
+        
+        case 'GET_SINGLE_BOOK':
+            return {
+                ...state,
+                book:action.payload
             }
     }
 }

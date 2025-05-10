@@ -30,6 +30,7 @@ export const useFetchBookById=({id})=>{
 
     return {
         isLoading,
-        error
+        error,
+        book:state.book
     }
 }

@@ -22,7 +22,7 @@ export const useFetchReviewByBookId=({id})=>{
                     pagination: result?.pagination
                 }
             })
-            setIsLoading(false)
+            setError(null)
         }catch(error){
             setError(error)
         }finally{

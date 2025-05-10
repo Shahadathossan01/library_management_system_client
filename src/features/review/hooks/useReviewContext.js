@@ -14,21 +14,15 @@ export const useReviewContext=()=>{
         return state.pagination
     },[state.pagination])
 
-    const updatePage=useCallback((page)=>{
-        dispatch({
-            type: 'UPDATE_PAGE',
-            payload: page
-        })
-    },[dispatch])
+    const updatePage = (page) => {
+        dispatch({ type: 'UPDATE_PAGE', payload: page });
+      };
 
 
-    const update=useCallback(async({id,review,status})=>{
-        const result=await updateReview({id,content:review,status})
-        dispatch({
-            type: 'UPDATE_REVIEW',
-            payload: result
-        })
-    },[dispatch])
+      const update = async ({ id, review, status }) => {
+        const result = await updateReview({ id, content: review, status });
+        dispatch({ type: 'UPDATE_REVIEW', payload: result });
+      };
 
     const deleteReviewItem=useCallback(async({id})=>{
         const result=await deleteReview({id})

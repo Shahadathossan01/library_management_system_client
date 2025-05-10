@@ -15,8 +15,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { NavLink } from 'react-router';
 import { toast } from 'react-toastify';
-import { useAuthContext } from '../../feaures/auth/hooks/useAuthContext';
-import { AuthProvider } from '../../feaures/auth/AuthProvider';
+import { useAuthContext } from '../../features/auth/hooks/useAuthContext';
+import { AuthProvider } from '../../features/auth/AuthProvider';
 
 const pages=[
     {
