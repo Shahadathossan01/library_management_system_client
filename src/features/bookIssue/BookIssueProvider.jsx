@@ -19,6 +19,11 @@ const reducer=(state,action)=>{
                 ...state,
                 book:action.payload
             }
+        case 'GET_SINGLE_BOOKISSUE':
+            return {
+                ...state,
+                bookIssue:action.payload
+            }
     }
 }
 

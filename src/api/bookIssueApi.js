@@ -20,6 +20,24 @@ const createBookIssue=async({bookId,status='pending'})=>{
     }
 }
 
+const getSingleBookIssue=async({id})=>{
+    if(!id) return null
+
+    try{
+        const {data}=await axios.get(`${apiUrl}/bookIssues/${id}?expand=book%2Cauthor`,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return data;
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export {
-    createBookIssue
+    createBookIssue,
+    getSingleBookIssue
 }

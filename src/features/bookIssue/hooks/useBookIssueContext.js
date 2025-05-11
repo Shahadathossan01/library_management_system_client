@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
-import { createBookIssue } from "../../../api/bookIssueApi"
+import { createBookIssue, getSingleBookIssue } from "../../../api/bookIssueApi"
 
 export const useBookIssueContext=()=>{
     const {state,dispatch}=useContext(BookIssueContext)
@@ -8,7 +8,7 @@ export const useBookIssueContext=()=>{
     const create=async({bookId,status='pending'})=>{
         try{
             const result= await createBookIssue({bookId,status})
-            console.log(result)
+            
             dispatch({
                 type: 'CREATE_BOOKISSUE',
                 payload: result
@@ -21,8 +21,24 @@ export const useBookIssueContext=()=>{
         }
     }
 
+    const getBookIssue=async({id})=>{
+        try{
+            const result=await getSingleBookIssue({id})
+
+            dispatch ({
+                type:'GET_SINGLE_BOOKISSUE',
+                payload:result
+            })
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
 
     return {
-        create
+        create,
+        getBookIssue,
+        bookIssue:state.bookIssue
     }
 }
