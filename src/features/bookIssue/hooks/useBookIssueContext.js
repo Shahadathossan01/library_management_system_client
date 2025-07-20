@@ -1,6 +1,6 @@
-import { useContext } from "react"
+import { useCallback, useContext, useMemo } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
-import { createBookIssue, getSingleBookIssue } from "../../../api/bookIssueApi"
+import { createBookIssue, deleteBookIssueApi, getSingleBookIssue } from "../../../api/bookIssueApi"
 
 export const useBookIssueContext=()=>{
     const {state,dispatch}=useContext(BookIssueContext)
@@ -14,10 +14,10 @@ export const useBookIssueContext=()=>{
                 payload: result
             })
 
-        return {success:true,bookIssueId:result?.data?._id}
+            return result;
 
         }catch(error){
-            return {success: false,message: error}
+            console.log(error)
         }
     }
 
@@ -35,10 +35,45 @@ export const useBookIssueContext=()=>{
         }
     }
 
+    const bookIssues=useMemo(()=>{
+        return state.bookIssues
+    },[state.bookIssues])
+
+    const pagination=useMemo(()=>{
+        return state.pagination
+    },[state.pagination])
+
+    const updatePage=useCallback((page)=>{
+        dispatch({
+            type:'UPDATE_PAGE',
+            payload:page
+        })
+    },[dispatch])
+
+    const deleteBookIssue=async({id})=>{
+
+        try{
+            const res=await deleteBookIssueApi({id})
+ 
+            dispatch({
+                type:'DELETE_BOOKISSUE',
+                payload:res
+            })
+            
+            
+        }catch(error){
+            console.log(error)
+        }
+
+    }
 
     return {
         create,
         getBookIssue,
-        bookIssue:state.bookIssue
+        bookIssue:state.bookIssue,
+        bookIssues,
+        pagination,
+        updatePage,
+        deleteBookIssue
     }
 }

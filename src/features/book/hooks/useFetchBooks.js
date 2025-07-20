@@ -21,7 +21,7 @@ export const useFetchBooks=()=>{
             }
 
             const result=await getBooks(params)
-
+            console.log(result)
             dispatch({
                 type: 'GETBOOKS',
                 payload:{

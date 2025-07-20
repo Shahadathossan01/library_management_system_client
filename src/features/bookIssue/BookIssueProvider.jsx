@@ -1,10 +1,16 @@
-import { Children, createContext, useReducer } from "react"
+import {createContext, useReducer } from "react"
 
 const initialState={
     bookIssues:[],
     book:null,
     bookIssue:null,
-    createdData:null
+    createdData:null,
+    page:1,
+    limit:10,
+    sort_type:'dsc',
+    sort_by:'updatedAt',
+    pagination:{},
+    isDeleteBookIssue:null
 }
 
 const reducer=(state,action)=>{
@@ -23,6 +29,23 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 bookIssue:action.payload
+            }
+        case 'GET_ALL_BOOKISSUE':
+            return {
+                ...state,
+                bookIssues: action.payload.bookIssues,
+                pagination: action.payload.pagination
+            }
+        case 'UPDATE_PAGE':
+            return {
+                ...state,
+                page: action.payload
+
+            }
+        case 'DELETE_BOOKISSUE':
+            return {
+                ...state,
+                isDeleteBookIssue: action.payload
             }
     }
 }

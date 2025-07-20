@@ -13,7 +13,7 @@ const Pagination = () => {
         updatePage(numberValue)
     }
     return (
-        <PaginationControlled handleChange={handleChange} page={Number(page)} count={totalPage}></PaginationControlled>
+        <PaginationControlled sx={{justifyContent: 'center'}} handleChange={handleChange} page={Number(page)} count={totalPage}></PaginationControlled>
     );
 };
 

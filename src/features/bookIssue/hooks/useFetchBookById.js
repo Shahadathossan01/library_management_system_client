@@ -13,7 +13,6 @@ export const useFetchBookById=({id})=>{
         try{
             setIsLoading(true)
             const result=await getBookById({id})
-            console.log(result)
             dispatch({
                 type: 'GET_SINGLE_BOOK',
                 payload: result.data

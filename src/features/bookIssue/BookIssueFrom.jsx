@@ -28,13 +28,13 @@ const BookIssueFromContent = ({id}) => {
     const {create}=useBookIssueContext()
     const navigate=useNavigate()
     const handleClick=async()=>{
-        const res=await create({bookId:book?._id})
+        const res=await create({bookId:id})
         console.log(res)
-        !res.success && toast.error(res.message)
+        !res?.success && toast.error(res?.message)
 
-        res.success && toast.success('Successfully Issues New Boook.')
+        res?.success && toast.success('Successfully Issues New Boook.')
 
-        res.success && navigate(`/bookIssueSuccess/${res.bookIssueId}`)
+        res?.success && navigate(`/bookIssueSuccess/${res.bookIssueId}`)
     }
 
     return (

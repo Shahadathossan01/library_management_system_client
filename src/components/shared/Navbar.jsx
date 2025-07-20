@@ -24,8 +24,8 @@ const pages=[
         element: 'Home'
     },
     {
-        path: 'bookIssue',
-        element: 'Book Issue'
+        path: 'bookIssues',
+        element: 'Book Issues'
     },
     {
         path: 'register',

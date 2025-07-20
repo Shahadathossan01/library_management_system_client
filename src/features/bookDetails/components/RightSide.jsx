@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
+import { Link } from 'react-router';
 
 const RightSide = ({ book }) => {
     return (
@@ -11,9 +12,11 @@ const RightSide = ({ book }) => {
                 <Typography variant="subtitle1">
                     <strong>In Stock:</strong> {book?.inStock ?? 0}
                 </Typography>
-                <Button disabled={(book?.status==='available' || book?.inStock ==0) && false} variant="contained" color="primary">
+                <Link to={`/bookIssueFrom/${book?._id}`}>
+                    <Button disabled={(book?.status==='available' || book?.inStock ==0) && false} variant="contained" color="primary">
                     Book Issue
                 </Button>
+                </Link>
             </Stack>
         </Box>
     );

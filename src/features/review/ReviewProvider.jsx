@@ -3,7 +3,7 @@ import { createContext, useReducer } from "react"
 const initialState={
     reviews:[],
     page:1,
-    limit:2,
+    limit:10,
     pagination:{},
     updatedData:null,
     deletedData:null,

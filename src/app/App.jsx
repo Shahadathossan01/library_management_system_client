@@ -6,6 +6,7 @@ import { Login } from "../features/auth/Login";
 import {BookDetails} from "../features/bookDetails/BookDetails";
 import { BookIssueFrom } from "../features/bookIssue";
 import { BookIssueSuccess } from "../features/bookIssue/BookIssueSuccess";
+import {BookIssues} from "../features/bookIssue/BookIssues";
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path="/bookDetails/:id" element={<BookDetails></BookDetails>} />
                 <Route path="/bookIssueFrom/:id" element={<BookIssueFrom></BookIssueFrom>} />
                 <Route path="/bookIssueSuccess/:id" element={<BookIssueSuccess></BookIssueSuccess>} />
+                <Route path="/bookIssues" element={<BookIssues></BookIssues>} />
             </Route>
         </Routes>
     );

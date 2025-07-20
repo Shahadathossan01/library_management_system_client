@@ -13,7 +13,6 @@ const getBooks=async(params)=>{
         }
 
         const {data}=await axios.get(`${apiUrl}/books${query}`)
-        
         return data
    }catch(error){
         console.log(error)
