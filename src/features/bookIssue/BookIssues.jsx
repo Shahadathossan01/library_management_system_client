@@ -21,9 +21,9 @@ BookIssues.displayName='BookIssues'
 const BookIssuesContent = () => {
     const {isLoading,error}=useFetchBookIssuesByUserId()
     const {bookIssues,pagination,updatePage}=useBookIssueContext()
-    
+
     if(isLoading) return <LoadingUi></LoadingUi>
-    if(error) return <ShowError></ShowError>
+
     if(!pagination) return <LoadingUi></LoadingUi>
     
     const {page,totalPage,limit}=pagination

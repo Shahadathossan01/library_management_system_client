@@ -27,6 +27,9 @@ export default function ModalUi({children,open,handleClose}) {
       >
         <Box sx={style}>
           {children}
+        <Box sx={{ display: 'flex', justifyContent:{xs:'center',sm:'flex-end'}, mt: 2 }}>
+          <Button onClick={handleClose}>Close</Button>
+        </Box>
         </Box>
       </Modal>
     </div>

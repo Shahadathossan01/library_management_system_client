@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../../features/auth/hooks/useAuthContext';
 import { AuthProvider } from '../../features/auth/AuthProvider';
@@ -187,10 +187,12 @@ export const Navbar=()=>{
               
 
             <Box sx={{ flexGrow: 0 }}>
-              <IconButton sx={{ p: 2 }}>
+              <Link to="/profile">
+                <IconButton sx={{ p: 2 }}>
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
                 <AccountCircleIcon sx={{color:'white',fontSize:'30px'}}></AccountCircleIcon>
               </IconButton>
+              </Link>
             </Box>
           </Box>
         </Toolbar>

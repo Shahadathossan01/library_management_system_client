@@ -9,9 +9,10 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { parseISO, format, addDays } from 'date-fns';
 import { useBookIssueContext } from '../hooks/useBookIssueContext';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 export default function BookIssuesTable({bookIssues,limit=10,page=1}) {
     const {deleteBookIssue}=useBookIssueContext()
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -26,7 +27,12 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookIssues?.map((item,index) => (
+          {
+            bookIssues?.length===0 ? (
+              <Typography sx={{p:2}}>No Book issues yet!</Typography>
+            ):
+            (
+              bookIssues?.map((item,index) => (
             <TableRow
               key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -45,7 +51,9 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1}) {
                 </IconButton>
               </TableCell>
             </TableRow>
-          ))}
+          ))
+            )
+          }
         </TableBody>
       </Table>
     </TableContainer>

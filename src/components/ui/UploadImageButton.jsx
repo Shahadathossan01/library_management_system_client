@@ -20,6 +20,7 @@ export default function UploadImageButton({onChange,children}) {
     <Button
       component="label"
       variant="contained"
+      sx={{bgcolor:'gray'}}
       startIcon={<CloudUploadIcon />}
     >
       {children}
