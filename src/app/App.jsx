@@ -8,22 +8,38 @@ import { BookIssueFrom } from "../features/bookIssue";
 import { BookIssueSuccess } from "../features/bookIssue/BookIssueSuccess";
 import {BookIssues} from "../features/bookIssue/BookIssues";
 import { ProfileManagement } from "../features/profile/ProfileManagement";
-
+import PrivateRoute from "../privateRoutes/PrivateRoute";
+import AuthRoutes from "../routers/AuthRoutes";
+import UserRoutes from "../routers/UserRoutes";
+import { useAuthContext } from "../features/auth/hooks/useAuthContext";
+import AdminRoutes from "../routers/AdminRoutes";
+import { AdminManagement } from "../features/admin/AdminManagement";
 
 const App = () => {
+    const {user,access_token}=useAuthContext()
     return (
         <Routes>
-            <Route element={<MainLayout></MainLayout>}>
-                <Route path="/" element={<Home></Home>} />
-                <Route path="/register" element={<Register></Register>} />
-                <Route path="/login" element={<Login></Login>} />
-                <Route path="/bookDetails/:id" element={<BookDetails></BookDetails>} />
-                <Route path="/bookIssueFrom/:id" element={<BookIssueFrom></BookIssueFrom>} />
-                <Route path="/bookIssueSuccess/:id" element={<BookIssueSuccess></BookIssueSuccess>} />
-                <Route path="/bookIssues" element={<BookIssues></BookIssues>} />
-                <Route path="/profile" element={<ProfileManagement></ProfileManagement>} />
-            </Route>
+            {(!access_token || (access_token && user?.role === 'user')) && (
+
+                <Route element={<MainLayout />}>
+                    {AuthRoutes()}
+                    {UserRoutes()}
+                </Route>
+
+            )}
+
+            {access_token && user?.role === 'admin' && (
+
+                <Route path="/admin" element={<AdminManagement />}>
+                    {AdminRoutes()}
+                </Route>
+
+            )}
+
+
+            <Route path="*" element={<h2>404 - Not Found</h2>} />
         </Routes>
+
     );
 };
 

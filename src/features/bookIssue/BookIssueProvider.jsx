@@ -45,7 +45,7 @@ const reducer=(state,action)=>{
         case 'DELETE_BOOKISSUE':
             return {
                 ...state,
-                isDeleteBookIssue: action.payload
+                isDeleteBookIssue: Date.now()
             }
     }
 }

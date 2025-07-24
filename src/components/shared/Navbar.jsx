@@ -7,36 +7,25 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link, NavLink } from 'react-router';
 import { toast } from 'react-toastify';
 import { useAuthContext } from '../../features/auth/hooks/useAuthContext';
-import { AuthProvider } from '../../features/auth/AuthProvider';
+import { Link, NavLink, useNavigate } from 'react-router';
+import logo from '../../../assects/logo.webp'
 
-const pages=[
-    {
-        path: '/',
-        element: 'Home'
-    },
-    {
-        path: 'bookIssues',
-        element: 'Book Issues'
-    },
-    {
-        path: 'register',
-        element: 'Register'
-    }
-]
+const pages = [
+  { path: '/', element: 'Home' },
+  { path: 'bookIssues', element: 'Book Issues' },
+  { path: 'register', element: 'Register' }
+];
 
-export const Navbar=()=>{
+export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const {state,logout}=useAuthContext()
-  const {access_token}=state
+  const { access_token, logout } = useAuthContext();
+
+  const navigate=useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,101 +35,96 @@ export const Navbar=()=>{
     setAnchorElNav(null);
   };
 
-  const handleLogout=()=>{
-    logout()
-    handleCloseNavMenu()
-    toast.success('Logout Successfully')
-  }
-
+  const handleLogout = () => {
+    logout();
+    handleCloseNavMenu();
+    toast.success('Logout Successfully');
+    navigate('/')
+  };
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ justifyContent: "space-evenly", px: 3 }}> 
 
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-
-          {/**Desktop */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              flexGrow:3
-            }}
-          >
-            Library Management System
-          </Typography>
-
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-            {/**Mobile */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Library Management System
-          </Typography>
-
-            {/**Mobile */}
-          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+          {/* Desktop Logo */}
+          <Box sx={{display: "flex", alignItems: "center"}}>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                flexGrow: 3,
+                p:1
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <NavLink style={{textDecoration:'none',color:'black'}} key={page.element} to={page.path} onClick={handleCloseNavMenu}>
-                    <MenuItem>
-                        <Typography sx={{ textAlign: 'center' }}>{page.element}</Typography>
-                    </MenuItem>
-                </NavLink>
-              ))}
+              <img src={logo} alt="logo" style={{height:'60px',width:'60px',borderRadius:'50%'}} />
+            </Typography>
+          </Link>
+          </Box>
 
-              <NavLink to='/login' style={{textDecoration:'none',color:'black'}} onClick={handleCloseNavMenu}>
-                    <MenuItem>
-                        <Typography sx={{ textAlign: 'center' }}>Login</Typography>
-                    </MenuItem>
+          {/* Desktop Navigation */}
+          <Box  sx={{
+      display: { xs: "none", md: "flex" },
+      alignItems: "center",
+      gap: 3,ml:'35%'
+    }}>
+            {pages.map((page) => (
+              <NavLink to={page.path} key={page.element} style={{ textDecoration: 'none' }}>
+                <Button sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+                  {page.element}
+                </Button>
               </NavLink>
-              <NavLink style={{textDecoration:'none',color:'black'}} onClick={handleLogout}>
-                    <MenuItem>
-                        <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
-                    </MenuItem>
+            ))}
+
+            {access_token ? (
+              <Button onClick={handleLogout} sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+                Logout
+              </Button>
+            ) : (
+              <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                <Button sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+                  Login
+                </Button>
               </NavLink>
-            </Menu>
+            )}
+
+            <Link to="/profile">
+              <IconButton sx={{ p: 1 }}>
+                <AccountCircleIcon sx={{ color: 'white', fontSize: '30px' }} />
+              </IconButton>
+            </Link>
+          </Box>
+
+          {/* Mobile Logo */}
+          <Box sx={{mr:'60%',display: { xs: 'flex', md: 'none' },}}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography
+              variant="h5"
+              noWrap
+              sx={{
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                p:1
+              }}
+            >
+              <img src={logo} alt="logo" style={{height:'60px',width:'60px',borderRadius:'50%'}} />
+            </Typography>
+          </Link>
+          </Box>
+
+          {/* Mobile Menu */}
+          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -148,57 +132,56 @@ export const Navbar=()=>{
             >
               <MenuIcon />
             </IconButton>
-          </Box>
 
-          {/**Desktop */}
-          <Box sx={{ flexGrow:1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <NavLink to={page.path} style={{textDecoration:'none'}} key={page.element}>
-                <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              keepMounted
+              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', md: 'none' } }}
+            >
+              {pages.map((page) => (
+                <NavLink
+                  key={page.element}
+                  to={page.path}
+                  onClick={handleCloseNavMenu}
+                  style={{ textDecoration: 'none', color: 'black' }}
                 >
-                    {page.element}
-                </Button>
-              </NavLink>
-            ))}
-
-            {
-              access_token? (
-                  <NavLink onClick={handleLogout} style={{textDecoration:'none'}}>
-                      <Button
-                          sx={{ my: 2, color: 'white', display: 'block' }}
-                      >
-                          Logout
-                      </Button>
+                  <MenuItem>
+                    <Typography textAlign="center">{page.element}</Typography>
+                  </MenuItem>
                 </NavLink>
+              ))}
+
+              {access_token ? (
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
               ) : (
-                <NavLink to='/login' style={{textDecoration:'none'}}>
-                    <Button
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                        Login
-                    </Button>
-              </NavLink>
-              )
-            }
+                <NavLink to="/login" onClick={handleCloseNavMenu} style={{ textDecoration: 'none', color: 'black' }}>
+                  <MenuItem>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                </NavLink>
+              )}
 
-              
-              
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Link to="/profile">
-                <IconButton sx={{ p: 2 }}>
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
-                <AccountCircleIcon sx={{color:'white',fontSize:'30px'}}></AccountCircleIcon>
-              </IconButton>
+              <Link to="/profile" onClick={handleCloseNavMenu} style={{ textDecoration: 'none' }}>
+                <MenuItem>
+                  <IconButton>
+                    <AccountCircleIcon sx={{ color: 'black', fontSize: '30px' }} />
+                  </IconButton>
+                </MenuItem>
               </Link>
-            </Box>
+            </Menu>
           </Box>
+
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
 
-Navbar.displayName='Navbar'
+Navbar.displayName = 'Navbar';

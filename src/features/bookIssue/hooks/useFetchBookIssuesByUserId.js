@@ -21,7 +21,8 @@ export const useFetchBookIssuesByUserId=()=>{
             }
 
             const result=await getBookIssuesByUserId({params})
-            
+
+           
             dispatch({
                 type: 'GET_ALL_BOOKISSUE',
                 payload:{
@@ -38,11 +39,11 @@ export const useFetchBookIssuesByUserId=()=>{
             setIsLoading(false)
         }
 
-    },[page,limit,sort_by,sort_type,dispatch])
+    },[page,limit,sort_by,sort_type,dispatch,isDeleteBookIssue])
 
     useEffect(()=>{
         fetchBookIssues()
-    },[fetchBookIssues,isDeleteBookIssue])
+    },[fetchBookIssues])
 
     return{
         isLoading,

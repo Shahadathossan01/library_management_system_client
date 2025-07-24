@@ -6,7 +6,9 @@ const MainLayout = () => {
     return (
         <Box>
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            <Box sx={{mt:15}}>
+                <Outlet></Outlet>
+            </Box>
         </Box>
     );
 };

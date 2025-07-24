@@ -7,7 +7,7 @@ import TextField from '../../components/ui/TextField';
 import { Avatar, Box, Button, Grid, Paper, Typography } from '@mui/material';
 import { useBookIssueContext } from './hooks/useBookIssueContext';
 import { toast } from 'react-toastify';
-
+const token=localStorage.getItem('access_token') || null;
 
 
 export const BookIssueFrom = () => {
@@ -28,8 +28,14 @@ const BookIssueFromContent = ({id}) => {
     const {create}=useBookIssueContext()
     const navigate=useNavigate()
     const handleClick=async()=>{
+
+      if(!token){
+        navigate('/login', { state: { from: location }, replace: true })
+        return
+      }
+
         const res=await create({bookId:id})
-        console.log(res)
+
         !res?.success && toast.error(res?.message)
 
         res?.success && toast.success('Successfully Issues New Boook.')

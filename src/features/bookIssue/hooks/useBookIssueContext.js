@@ -74,6 +74,7 @@ export const useBookIssueContext=()=>{
         bookIssues,
         pagination,
         updatePage,
-        deleteBookIssue
+        deleteBookIssue,
+        isDeleteBookIssue:state.isDeleteBookIssue
     }
 }
