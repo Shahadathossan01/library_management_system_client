@@ -8,7 +8,10 @@ const initialState={
     sort_type:'dsc',
     sort_by:'updatedAt',
     search:'',
-    pagination:{}
+    pagination:{},
+    isDeleted:null,
+    createBook:null,
+    editBook:null
 }
 
 const reducer=(state,action)=>{
@@ -29,6 +32,24 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 book:action.payload
+            }
+        
+        case 'DELETE_BOOK':
+            return {
+                ...state,
+                isDeleted: Date.now() 
+            }
+        
+        case 'CREATE_BOOK':
+            return {
+                ...state,
+                createBook:action.payload
+            }
+
+        case 'EDIT_BOOK':
+            return {
+                ...state,
+                editBook:action.payload
             }
     }
 }

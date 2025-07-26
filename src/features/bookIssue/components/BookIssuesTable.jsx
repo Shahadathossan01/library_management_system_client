@@ -9,9 +9,63 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { parseISO, format, addDays } from 'date-fns';
 import { useBookIssueContext } from '../hooks/useBookIssueContext';
-import { IconButton, Typography } from '@mui/material';
-export default function BookIssuesTable({bookIssues,limit=10,page=1}) {
-    const {deleteBookIssue}=useBookIssueContext()
+import { Box, Button, IconButton, Typography } from '@mui/material';
+import SelectField from '../../../components/ui/SelectField';
+import ModalUi from '../../../components/shared/ModalUi';
+import { Controller, useForm } from 'react-hook-form';
+
+const UpdateStatusForm=({handleClose})=>{
+  const {handleSubmit,control,reset}=useForm()
+
+  const onSubmit=(data)=>{
+
+  }
+  return (
+    <Box sx={{display:'flex',justifyContent:'center'}}>
+      <form onSubmit={()=>handleSubmit(onSubmit)}>
+          <Controller
+              name='status'
+              control={control}
+              render={({field})=><SelectField 
+                  {...field}
+                  label='Status'
+                  size='small'
+                  options={[{label:'cancelled',value:'cancelled'},{label:'overDue',value:'overDue'},{label:'returned',value:'returned'},{label:'public_hand',value:'public_hand'}]}                              
+              />}
+          />
+
+          <Box>
+            <Button type='submit' size='small' variant='contained'>confirm</Button>
+          </Box>
+      </form>
+    </Box>
+  )
+}
+
+
+const UpdateStatusSection=()=>{
+  const [open,setOpen]=React.useState(false)
+
+  const handleOpen=()=>{
+    setOpen(true)
+  }
+
+  const handleClose=()=>{
+    setOpen(false)
+  }
+  return (
+<Box>
+                      <Button onClick={handleOpen} variant='contained' size='small'>update status</Button>
+                      <ModalUi open={open} handleClose={handleClose}>
+                          <UpdateStatusForm handleClose={handleClose}></UpdateStatusForm>
+                      </ModalUi>
+                    </Box>
+  )
+}
+
+
+export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDeleteBookIssue}) {
+    
 
   return (
     <TableContainer component={Paper}>
@@ -45,10 +99,12 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1}) {
               <TableCell align="right">{item?.status}</TableCell>
               <TableCell align="right">{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</TableCell>
               <TableCell  align="right">
-                <IconButton onClick={()=>deleteBookIssue({id:item?._id})}>
-
-                <DeleteIcon  sx={{color:'red'}}></DeleteIcon>
-                </IconButton>
+                <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                    <IconButton onClick={()=>handleDeleteBookIssue({id:item?._id})}>
+                      <DeleteIcon  sx={{color:'red'}}></DeleteIcon>
+                    </IconButton>
+                    <UpdateStatusSection></UpdateStatusSection>
+                </Box>
               </TableCell>
             </TableRow>
           ))

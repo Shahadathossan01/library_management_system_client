@@ -20,7 +20,7 @@ BookIssues.displayName='BookIssues'
 
 const BookIssuesContent = () => {
     const {isLoading,error}=useFetchBookIssuesByUserId()
-    const {bookIssues,pagination,updatePage}=useBookIssueContext()
+    const {bookIssues,pagination,updatePage,deleteBookIssue}=useBookIssueContext()
 
     if(isLoading) return <LoadingUi></LoadingUi>
 
@@ -35,7 +35,7 @@ const BookIssuesContent = () => {
 
     return (
         <Box>
-            <BookIssuesTable bookIssues={bookIssues} limit={limit} page={page}></BookIssuesTable>
+            <BookIssuesTable bookIssues={bookIssues} limit={limit} page={page} handleDeleteBookIssue={deleteBookIssue}></BookIssuesTable>
             {
                 totalPage>1 && (
                     <PaginationControlled page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>

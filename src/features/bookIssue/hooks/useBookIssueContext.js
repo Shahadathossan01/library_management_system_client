@@ -1,6 +1,7 @@
 import { useCallback, useContext, useMemo } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
-import { createBookIssue, deleteBookIssueApi, getSingleBookIssue } from "../../../api/bookIssueApi"
+import { createBookIssue, deleteBookIssueApi, getSingleBookIssue, updateStatusApi } from "../../../api/bookIssueApi"
+import axios from "axios"
 
 export const useBookIssueContext=()=>{
     const {state,dispatch}=useContext(BookIssueContext)
@@ -39,9 +40,17 @@ export const useBookIssueContext=()=>{
         return state.bookIssues
     },[state.bookIssues])
 
+    const allBookIssuesForAdminData=useMemo(()=>{
+        return state.allBookIssuesForAdminData
+    },[state.allBookIssuesForAdminData])
+
     const pagination=useMemo(()=>{
         return state.pagination
     },[state.pagination])
+
+    const allBookIssuesForAdminPagination=useMemo(()=>{
+        return state.allBookIssuesForAdminPagination
+    },[state.allBookIssuesForAdminPagination])
 
     const updatePage=useCallback((page)=>{
         dispatch({
@@ -64,7 +73,20 @@ export const useBookIssueContext=()=>{
         }catch(error){
             console.log(error)
         }
+    }
 
+    const updateStatus=async({id})=>{
+
+        try{
+            const res=await updateStatusApi({id})
+
+            dispatch({
+                type: 'UPDATE_STATUS',
+                payload: res
+            })
+        }catch(error){
+            console.log(error)
+        }
     }
 
     return {
@@ -75,6 +97,10 @@ export const useBookIssueContext=()=>{
         pagination,
         updatePage,
         deleteBookIssue,
-        isDeleteBookIssue:state.isDeleteBookIssue
+        isDeleteBookIssue:state.isDeleteBookIssue,
+        allBookIssuesForAdminData,
+        allBookIssuesForAdminPagination,
+        updateStatus
+
     }
 }

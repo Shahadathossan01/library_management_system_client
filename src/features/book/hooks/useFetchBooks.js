@@ -7,7 +7,7 @@ export const useFetchBooks=()=>{
     const [error,setError]=useState(null)
     const {state,dispatch}=useContext(BookContext)
 
-    const {page,limit,sort_by,sort_type,search}=state
+    const {page,limit,sort_by,sort_type,search,isDeleted,createBook,editBook}=state
 
     const fetchBooks=useCallback(async()=>{
         try{
@@ -21,6 +21,15 @@ export const useFetchBooks=()=>{
             }
 
             const result=await getBooks(params)
+
+            if (result.data.length === 0 && page > 1) {
+                dispatch({
+                type: 'UPDATE_PAGE',
+                payload: page - 1,
+                })
+                return // 👈 Stop current dispatch, next useEffect will refetch
+            }
+
             dispatch({
                 type: 'GETBOOKS',
                 payload:{
@@ -30,14 +39,13 @@ export const useFetchBooks=()=>{
             })
 
 
-
             setError(null)
         }catch(error){
             setError(error)
         }finally{
             setIsLoading(false)
         }
-    },[page,limit,search,sort_by,sort_type,dispatch])
+    },[page,limit,search,sort_by,sort_type,dispatch,isDeleted,createBook,editBook])
 
 
     useEffect(()=>{

@@ -4,9 +4,6 @@ const token=localStorage.getItem('access_token') || null;
 const user=localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')):null;
 const userId=user?._id
 
-console.log(token)
-console.log(user)
-
 const createBookIssue=async({bookId,status='pending'})=>{
     if(!bookId) return null
 
@@ -19,7 +16,6 @@ const createBookIssue=async({bookId,status='pending'})=>{
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(data)
         return {success:true,message:data.message,bookIssueId:data.data._id}
     }catch(error){
         console.log(error)
@@ -52,8 +48,6 @@ const getSingleBookIssue=async({id})=>{
 const getBookIssuesByUserId=async({params})=>{
     const {page,limit,sort_by,sort_type}=params
 
-    console.log('userId',userId)
-
     try{
         const query=`?page=${page}&limit=${limit}&sort_type=${sort_type}&sort_by=${sort_by}`;
 
@@ -82,9 +76,44 @@ const deleteBookIssueApi=async({id})=>{
         console.log(error)
     }
 }
+
+const getAllBookIssues=async(params)=>{
+    const {page,limit,sort_by,sort_type}=params
+
+    try{
+        const query=`?page=${page}&limit=${limit}&sort_by=${sort_by}&sort_type=${sort_type}`;
+
+        const {data}=await axios.get(`${apiUrl}/bookIssues/${query}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const updateStatusApi=async({id})=>{
+    try{
+        const {data}=await axios.patch(`${apiUrl}/bookIssues/${id}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return data
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export {
     createBookIssue,
     getSingleBookIssue,
     getBookIssuesByUserId,
-    deleteBookIssueApi
+    deleteBookIssueApi,
+    getAllBookIssues,
+    updateStatusApi
 }

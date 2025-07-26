@@ -10,7 +10,10 @@ const initialState={
     sort_type:'dsc',
     sort_by:'updatedAt',
     pagination:{},
-    isDeleteBookIssue:null
+    isDeleteBookIssue:null,
+    allBookIssuesForAdminData:[],
+    allBookIssuesForAdminPagination:{},
+    isUpdateStatus:null
 }
 
 const reducer=(state,action)=>{
@@ -46,6 +49,19 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 isDeleteBookIssue: Date.now()
+            }
+        
+        case 'ALL_BOOK_ISSUES_FOR_ADMIN':
+            return {
+                ...state,
+                allBookIssuesForAdminData:action.payload.data,
+                allBookIssuesForAdminPagination:action.payload.pagination
+            }
+        
+        case 'UPDATE_STATUS':
+            return {
+                ...state,
+                isUpdateStatus:action.payload
             }
     }
 }

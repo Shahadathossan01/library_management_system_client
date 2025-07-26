@@ -13,7 +13,7 @@ import AuthRoutes from "../routers/AuthRoutes";
 import UserRoutes from "../routers/UserRoutes";
 import { useAuthContext } from "../features/auth/hooks/useAuthContext";
 import AdminRoutes from "../routers/AdminRoutes";
-import { AdminManagement } from "../features/admin/AdminManagement";
+import { AdminManagement } from "../features/admin";
 
 const App = () => {
     const {user,access_token}=useAuthContext()

@@ -33,7 +33,6 @@ const SectionOne = () => {
 
   const links = [
     { to: '/admin/dashboard', label: 'Users' },
-    { to: '/admin/review_management', label: 'Review Management' },
     { to: '/admin/book_management', label: 'Book Management' },
     { to: '/admin/book_issues', label: 'Book Issues' },
     { to: '/admin/requested_book_issues', label: 'Requested Book Issues' },
