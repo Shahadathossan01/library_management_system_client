@@ -69,7 +69,7 @@ export const Navbar = () => {
             ))}
 
             {access_token ? (
-              <Button onClick={handleLogout} x={{ my: 2, color: 'black',fontWeight:'bold',fontSize:'16px',textTransform: 'none' }}>
+              <Button onClick={handleLogout} sx={{ my: 2, color: 'black',fontWeight:'bold',fontSize:'16px',textTransform: 'none' }}>
                 Logout
               </Button>
             ) : (
@@ -95,16 +95,16 @@ export const Navbar = () => {
           </Box>
 
           {/* Mobile Menu */}
-          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' }}}>
             <IconButton
               size="large"
               aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="black"
             >
-              <MenuIcon />
+              <MenuIcon sx={{fontWeight:'bold',fontSize:'40px'}} />
             </IconButton>
 
             <Menu
