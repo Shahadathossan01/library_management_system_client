@@ -1,8 +1,9 @@
 import { Box, Card, CardContent, Typography, CardMedia, Button, Stack } from "@mui/material";
 import { NavLink } from "react-router";
+import { toast } from "react-toastify";
 
 const BookCard = ({ book }) => {
-  const { name, authorName, image, inStock, summary, status } = book;
+  const { name, authorName, image, inStock,status } = book;
 
   return (
     <Card
@@ -38,11 +39,18 @@ const BookCard = ({ book }) => {
 
       <Box sx={{ px: 1,pb:2 }}>
         <Stack direction="row" spacing={1} justifyContent="space-between">
-          <NavLink to={`/bookIssueFrom/${book._id}`}>
-            <Button variant="contained" size="small" fullWidth>
+          {inStock> 0 ? (
+            <NavLink to={`/bookIssueFrom/${book._id}`}>
+              <Button variant="contained" size="small" fullWidth>
+                Book Issue
+              </Button>
+            </NavLink>
+          ) : (
+            <Button onClick={()=>{toast.error('Out of Stock!')}} sx={{bgcolor:'#bdbdbd'}} variant="contained" size="small">
               Book Issue
             </Button>
-          </NavLink>
+          )}
+
           <NavLink to={`/bookDetails/${book._id}`}>
             <Button variant="outlined" size="small" fullWidth>
               Details
