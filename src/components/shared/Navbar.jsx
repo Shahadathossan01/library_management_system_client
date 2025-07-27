@@ -43,28 +43,14 @@ export const Navbar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar sx={{bgcolor:'#a6e4e7'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-evenly", px: 3 }}> 
 
           {/* Desktop Logo */}
-          <Box sx={{display: "flex", alignItems: "center"}}>
+          <Box sx={{display: { xs: 'none', md: 'flex' }, alignItems: "center",pt:0.5}}>
           <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                flexGrow: 3,
-                p:1
-              }}
-            >
               <img src={logo} alt="logo" style={{height:'60px',width:'60px',borderRadius:'50%'}} />
-            </Typography>
           </Link>
           </Box>
 
@@ -72,23 +58,23 @@ export const Navbar = () => {
           <Box  sx={{
       display: { xs: "none", md: "flex" },
       alignItems: "center",
-      gap: 3,ml:'35%'
+      gap: 3,ml:'30%'
     }}>
             {pages.map((page) => (
               <NavLink to={page.path} key={page.element} style={{ textDecoration: 'none' }}>
-                <Button sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+                <Button sx={{ my: 2, color: 'black',fontWeight:'bold',fontSize:'16px',textTransform: 'none'}}>
                   {page.element}
                 </Button>
               </NavLink>
             ))}
 
             {access_token ? (
-              <Button onClick={handleLogout} sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+              <Button onClick={handleLogout} x={{ my: 2, color: 'black',fontWeight:'bold',fontSize:'16px',textTransform: 'none' }}>
                 Logout
               </Button>
             ) : (
               <NavLink to="/login" style={{ textDecoration: 'none' }}>
-                <Button sx={{ my: 2, color: 'white', textTransform: 'none' }}>
+                <Button sx={{ my: 2, color: 'black',fontWeight:'bold',fontSize:'16px',textTransform: 'none' }}>
                   Login
                 </Button>
               </NavLink>
@@ -96,27 +82,15 @@ export const Navbar = () => {
 
             <Link to="/profile">
               <IconButton sx={{ p: 1 }}>
-                <AccountCircleIcon sx={{ color: 'white', fontSize: '30px' }} />
+                <AccountCircleIcon sx={{ color: 'black', fontSize: '30px' }} />
               </IconButton>
             </Link>
           </Box>
 
           {/* Mobile Logo */}
-          <Box sx={{mr:'60%',display: { xs: 'flex', md: 'none' },}}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <Typography
-              variant="h5"
-              noWrap
-              sx={{
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                p:1
-              }}
-            >
+          <Box sx={{mr:'60%',display: { xs: 'flex', md: 'none'},pt:1}}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit'}}>
               <img src={logo} alt="logo" style={{height:'60px',width:'60px',borderRadius:'50%'}} />
-            </Typography>
           </Link>
           </Box>
 

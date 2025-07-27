@@ -7,7 +7,7 @@ const BookCard = ({ book }) => {
   return (
     <Card
       sx={{
-        maxWidth: 300,
+        width:'100%',
         height: "100%",
         borderRadius: 2,
         boxShadow: 3,
@@ -18,7 +18,8 @@ const BookCard = ({ book }) => {
     >
       <CardMedia
         component="img"
-        height="200"
+        height="200px"
+        width="300px"
         image={image}
         alt={name}
         sx={{ objectFit: "cover" }}
@@ -27,19 +28,15 @@ const BookCard = ({ book }) => {
         <Typography variant="h6" gutterBottom>{name}</Typography>
         <Typography variant="body1">Author: {authorName}</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          In Stock: {inStock}
+          <strong>In Stock: {inStock}</strong>
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Status: {status}
+          <strong>Status: {status}</strong>
         </Typography>
 
-        <Typography variant="subtitle2" sx={{ mt: 2 }}>Summary:</Typography>
-        <Typography variant="body2" color="text.secondary">
-          {summary.slice(0, 70)}{summary.length > 70 && "..."}
-        </Typography>
       </CardContent>
 
-      <Box sx={{ p: 2 }}>
+      <Box sx={{ px: 1,pb:2 }}>
         <Stack direction="row" spacing={1} justifyContent="space-between">
           <NavLink to={`/bookIssueFrom/${book._id}`}>
             <Button variant="contained" size="small" fullWidth>

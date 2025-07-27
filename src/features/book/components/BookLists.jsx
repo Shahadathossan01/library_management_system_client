@@ -7,7 +7,7 @@ import SkeletonUi from "../../../components/shared/SkeletonUi";
 const BookLists = ({books}) => {
     
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 ,p:2,mt:3}}>
         <Grid container spacing={2}>
 
             {   

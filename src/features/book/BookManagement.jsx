@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { BookProvider } from "./BookProvider";
 import { useFetchBooks } from "./hooks/useFetchBooks";
 import { useBookContext } from "./hooks/useBookContext";
@@ -34,9 +34,12 @@ const BookManagementContent=()=>{
     if(error) return <ShowError></ShowError>
 
     return(
-        <Box>
+        <Box sx={{mt:10}}>
+        <Typography sx={{textAlign:'center',fontWeight:'bold'}} variant="h3">Books</Typography>
+        <Box sx={{bgcolor:'#ebcbae',p:1}}>
             <BookLists isLoading={isLoading} books={books}></BookLists>
-            <PaginationControlled page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>
+            <PaginationControlled sx={{justifyContent:'center'}} page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>
+        </Box>
         </Box>
     )
 }

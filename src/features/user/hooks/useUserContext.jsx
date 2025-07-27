@@ -1,5 +1,4 @@
 import { useCallback, useContext, useMemo } from "react"
-import axios from "axios"
 import { deleteUserApi } from "../../../api/user"
 import { UserContext } from "../UserProvider"
 import { useAuthContext } from "../../auth/hooks/useAuthContext"
