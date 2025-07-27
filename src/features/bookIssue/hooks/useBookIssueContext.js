@@ -2,13 +2,16 @@ import { useCallback, useContext, useMemo } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
 import { createBookIssue, deleteBookIssueApi, getSingleBookIssue, updateStatusApi } from "../../../api/bookIssueApi"
 import axios from "axios"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useBookIssueContext=()=>{
     const {state,dispatch}=useContext(BookIssueContext)
 
+    const {access_token,user}=useAuthContext()
+
     const create=async({bookId,status='pending'})=>{
         try{
-            const result= await createBookIssue({bookId,status})
+            const result= await createBookIssue({bookId,status,token:access_token})
             
             dispatch({
                 type: 'CREATE_BOOKISSUE',
@@ -24,7 +27,7 @@ export const useBookIssueContext=()=>{
 
     const getBookIssue=async({id})=>{
         try{
-            const result=await getSingleBookIssue({id})
+            const result=await getSingleBookIssue({id,token:access_token})
 
             dispatch ({
                 type:'GET_SINGLE_BOOKISSUE',
@@ -62,7 +65,7 @@ export const useBookIssueContext=()=>{
     const deleteBookIssue=async({id})=>{
 
         try{
-            const res=await deleteBookIssueApi({id})
+            const res=await deleteBookIssueApi({id,token:access_token})
  
             dispatch({
                 type:'DELETE_BOOKISSUE',
@@ -75,19 +78,45 @@ export const useBookIssueContext=()=>{
         }
     }
 
-    const updateStatus=async({id})=>{
+    const updateStatus = async ({ id, status }) => {
+  try {
+    const res = await updateStatusApi({ id, status ,token:access_token});
 
-        try{
-            const res=await updateStatusApi({id})
-
-            dispatch({
-                type: 'UPDATE_STATUS',
-                payload: res
-            })
-        }catch(error){
-            console.log(error)
-        }
+    // Assuming response always returns updated data
+    if (res?.data?.status === status) {
+      dispatch({
+        type: 'UPDATE_STATUS',
+        payload: res
+      });
+      return { success: true, status }; // ✅ return status for toast
+    } else {
+      return { success: false, message: 'Status not updated' };
     }
+  } catch (error) {
+    console.log(error);
+    return { success: false, message: 'Something went wrong' };
+  }
+};
+
+const updateSearchValue=(value)=>{
+        if(value==='all'){
+            dispatch({
+                type:'UPDATE_SEARCH_VALUE',
+                payload:''
+            })
+            return;
+        }
+
+        dispatch({
+            type:'UPDATE_SEARCH_VALUE',
+            payload:value
+        })
+    }
+
+
+
+
+
 
     return {
         create,
@@ -100,7 +129,8 @@ export const useBookIssueContext=()=>{
         isDeleteBookIssue:state.isDeleteBookIssue,
         allBookIssuesForAdminData,
         allBookIssuesForAdminPagination,
-        updateStatus
+        updateStatus,
+        updateSearchValue
 
     }
 }

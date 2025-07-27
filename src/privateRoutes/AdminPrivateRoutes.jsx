@@ -1,17 +1,16 @@
 import { Navigate, useLocation } from "react-router";
-import { toast } from 'react-toastify';
 import { useAuthContext } from "../features/auth/hooks/useAuthContext";
 
-const PrivateRoute = ({children}) => {
+const AdminPrivateRoute = ({children}) => {
     const {access_token,user}=useAuthContext()
     const location=useLocation()
     
 
-    if(access_token && user?.role==='user'){
+    if(access_token && user?.role==='admin'){
         return children
     }
 
     return <Navigate to="/login" state={{from:location}} replace/>
 };
 
-export default PrivateRoute;
+export default AdminPrivateRoute;

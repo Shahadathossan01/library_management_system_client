@@ -1,12 +1,14 @@
 import { useCallback, useContext, useEffect, useState } from "react"
-import { AdminContext } from "../AdminProvider"
+import {UserContext } from "../UserProvider"
 import { getAllUsers } from "../../../api/user"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useFetchUsers=()=>{
     const [isLoading,setIsLoading]=useState(false)
+    const {access_token,user}=useAuthContext()
     const [error,setError]=useState(null)
 
-    const {state,dispatch}=useContext(AdminContext)
+    const {state,dispatch}=useContext(UserContext)
 
     const {page,limit,sort_by,sort_type,search,isDeleted}=state
 
@@ -21,7 +23,7 @@ export const useFetchUsers=()=>{
                 search
             }
 
-            const result=await getAllUsers(params)
+            const result=await getAllUsers({params,token:access_token})
 
 
             // ✅ If users are empty AND page > 1 → go to previous page

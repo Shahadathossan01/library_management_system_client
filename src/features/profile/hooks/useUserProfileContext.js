@@ -1,17 +1,18 @@
 import { useContext, useMemo } from "react"
 import { ProfileContext } from "../ProfileProvider"
 import { updateProfileApi } from "../../../api/user"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useUserProfileContext=()=>{
     const {state,dispatch}=useContext(ProfileContext)
-
+    const {access_token,user}=useAuthContext()
     const profileData=useMemo(()=>{
         return state.profileData
     },[state.profileData])
 
     const updateProfile=async({formData})=>{
         try{
-            const res=await updateProfileApi({formData})
+            const res=await updateProfileApi({formData,token:access_token})
 
             dispatch({
                 type:'UPDATE_PROFILE',
@@ -24,7 +25,7 @@ export const useUserProfileContext=()=>{
 
     const uploadProfileImage=async({formData})=>{
         try{
-            const res=await updateProfileApi({formData})
+            const res=await updateProfileApi({formData,token:access_token,id:user?._id})
 
             dispatch({
                 type:'UPDATE_PROFILE',

@@ -1,6 +1,5 @@
 import axios from "axios"
 const apiUrl=import.meta.env.VITE_API_URL
-const token=localStorage.getItem('access_token')
 
 const getReviewById=async({id,page=1,limit=10})=>{
     try{
@@ -11,7 +10,7 @@ const getReviewById=async({id,page=1,limit=10})=>{
     }
 }
 
-const updateReview=async({id,content,status})=>{
+const updateReview=async({id,content,status,token})=>{
     try{
         const {data}=await axios.patch(`${apiUrl}/reviews/${id}`,{
             content,
@@ -27,7 +26,7 @@ const updateReview=async({id,content,status})=>{
         console.log(error)
     }
 }
-const createReview=async({id,content})=>{
+const createReview=async({id,content,token})=>{
     try{
         const {data}=await axios.post(`${apiUrl}/books/${id}/reviews`,{
             content,
@@ -43,7 +42,7 @@ const createReview=async({id,content})=>{
     }
 }
 
-const deleteReview=async({id})=>{
+const deleteReview=async({id,token})=>{
     try{
         const {data}=await axios.delete(`${apiUrl}/reviews/${id}`,{
             headers:{

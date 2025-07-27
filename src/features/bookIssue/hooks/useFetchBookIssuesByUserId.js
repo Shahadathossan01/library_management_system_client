@@ -1,8 +1,10 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
 import { getBookIssuesByUserId } from "../../../api/bookIssueApi"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useFetchBookIssuesByUserId=()=>{
+    const {access_token,user}=useAuthContext()
     const [isLoading,setIsLoading]=useState(false)
     const [error,setError]=useState(null)
     const {state,dispatch}=useContext(BookIssueContext)
@@ -20,7 +22,7 @@ export const useFetchBookIssuesByUserId=()=>{
                 sort_type
             }
 
-            const result=await getBookIssuesByUserId({params})
+            const result=await getBookIssuesByUserId({params,token:access_token,id:user?._id})
 
            
             dispatch({

@@ -1,7 +1,6 @@
 import axios from "axios"
 
 const apiUrl=import.meta.env.VITE_API_URL
-const token=localStorage.getItem('access_token') || null;
 
 const getBooks=async(params)=>{
     const {page,limit,sort_by,sort_type,search}=params
@@ -35,7 +34,7 @@ const getBookById=async({id,reviews})=>{
     }
 }
 
-const deleteBookApi=async({id})=>{
+const deleteBookApi=async({id,token})=>{
     try{
         const {data}=await axios.delete(`${apiUrl}/books/${id}`,{
             headers:{
@@ -49,7 +48,7 @@ const deleteBookApi=async({id})=>{
     }
 }
 
-const createBookApi=async({formData})=>{
+const createBookApi=async({formData,token})=>{
     try{
         const {data}=await axios.post(`${apiUrl}/books`,formData,{
             headers:{
@@ -63,7 +62,7 @@ const createBookApi=async({formData})=>{
     }
 }
 
-const editBookApi=async({id,formData})=>{
+const editBookApi=async({id,formData,token})=>{
     try{
         const {data}=await axios.patch(`${apiUrl}/books/${id}`,formData,{
              headers:{

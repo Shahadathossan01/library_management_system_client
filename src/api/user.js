@@ -2,11 +2,8 @@ import axios from "axios"
 
 const apiUrl=import.meta.env.VITE_API_URL
 
-const token=localStorage.getItem('access_token') || null;
-const user=localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')):null;
-const id=user?._id
 
-const getUserProfile=async()=>{
+const getUserProfile=async({token,id})=>{
 
     try{
         const {data}=await axios.get(`${apiUrl}/users/${id}`,{
@@ -21,7 +18,7 @@ const getUserProfile=async()=>{
     }
 }
 
-const updateProfileApi=async({formData})=>{
+const updateProfileApi=async({formData,token,id})=>{
     
     try{
         const {data}=await axios.patch(`${apiUrl}/users/${id}`,formData,{
@@ -36,7 +33,7 @@ const updateProfileApi=async({formData})=>{
     }
 }
 
-const getAllUsers=async(params)=>{
+const getAllUsers=async({params,token})=>{
     const {page,limit,sort_by,sort_type,search}=params
 
     try{
@@ -57,7 +54,7 @@ const getAllUsers=async(params)=>{
     }
 }
 
-const deleteUserApi=async({id})=>{
+const deleteUserApi=async({id,token})=>{
     try{
         const {data}=await axios.delete(`${apiUrl}/users/${id}`,{
             headers:{

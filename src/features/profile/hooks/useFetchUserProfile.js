@@ -1,9 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { ProfileContext } from "../ProfileProvider"
 import { getUserProfile } from "../../../api/user"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useFetchUserProfile=()=>{
     const [isLoading,setIsLoading]=useState(false)
+    const {access_token,user}=useAuthContext()
     const [error,setError]=useState(null)
     const {state,dispatch}=useContext(ProfileContext)
 
@@ -12,7 +14,7 @@ export const useFetchUserProfile=()=>{
 
         try{
             setIsLoading(true)
-            const result=await getUserProfile()
+            const result=await getUserProfile({token:access_token,id:user?._id})
             
             dispatch({
                 type:'GET_PROFILEDATA',

@@ -42,14 +42,14 @@ const reducer=(state,action)=>{
     }
 }
 
-export const AdminContext=createContext({state:initialState,dispatch:()=>{}})
+export const UserContext=createContext({state:initialState,dispatch:()=>{}})
 
-export const AdminProvider=({children})=>{
+export const UserProvider=({children})=>{
     const [state,dispatch]=useReducer(reducer,initialState)
 
     return (
-        <AdminContext.Provider value={{state,dispatch}}>
+        <UserContext.Provider value={{state,dispatch}}>
             {children}
-        </AdminContext.Provider>
+        </UserContext.Provider>
     )
 }

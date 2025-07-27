@@ -13,7 +13,7 @@ import AuthRoutes from "../routers/AuthRoutes";
 import UserRoutes from "../routers/UserRoutes";
 import { useAuthContext } from "../features/auth/hooks/useAuthContext";
 import AdminRoutes from "../routers/AdminRoutes";
-import { AdminManagement } from "../features/admin";
+import AdminLayout from "../layouts/AdminLayout";
 
 const App = () => {
     const {user,access_token}=useAuthContext()
@@ -30,7 +30,7 @@ const App = () => {
 
             {access_token && user?.role === 'admin' && (
 
-                <Route path="/admin" element={<AdminManagement />}>
+                <Route path="/admin" element={<AdminLayout />}>
                     {AdminRoutes()}
                 </Route>
 

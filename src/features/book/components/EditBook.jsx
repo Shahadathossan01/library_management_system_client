@@ -94,7 +94,7 @@ const EditBookForm=({id,handleClose})=>{
                                     {...field}
                                     label='Status'
                                     size='small'
-                                    options={[{label:'Available',value:'available'},{label:'Others Hand',value:'othersHand'}]}                              
+                                    options={[{label:'available',value:'available'},{label:'out_of_stock',value:'out_of_stock'}]}                              
                                 />}
                             />
                         </Grid>

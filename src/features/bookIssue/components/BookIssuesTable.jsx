@@ -13,16 +13,32 @@ import { Box, Button, IconButton, Typography } from '@mui/material';
 import SelectField from '../../../components/ui/SelectField';
 import ModalUi from '../../../components/shared/ModalUi';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
-const UpdateStatusForm=({handleClose})=>{
+const UpdateStatusForm=({handleClose,id})=>{
   const {handleSubmit,control,reset}=useForm()
+  const {updateStatus}=useBookIssueContext()
+  
+  const onSubmit=async(data)=>{
+    
+    const status=data?.status
+    
+   const result = await updateStatus({ id, status });
 
-  const onSubmit=(data)=>{
+  if (result.success) {
+    toast.success(`${result.status} Book`);
+    handleClose();
+    reset();
+  } else {
+    toast.error(result.message || 'Failed to update status');
+  }
 
+   handleClose()
+   reset()
   }
   return (
     <Box sx={{display:'flex',justifyContent:'center'}}>
-      <form onSubmit={()=>handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
               name='status'
               control={control}
@@ -30,7 +46,13 @@ const UpdateStatusForm=({handleClose})=>{
                   {...field}
                   label='Status'
                   size='small'
-                  options={[{label:'cancelled',value:'cancelled'},{label:'overDue',value:'overDue'},{label:'returned',value:'returned'},{label:'public_hand',value:'public_hand'}]}                              
+                  options={[
+                    { label: 'pending', value: 'pending' },
+                    { label: 'cancelled', value: 'cancelled' },
+                    { label: 'overdue', value: 'overdue' }, // ✅ Capital D
+                    { label: 'returned', value: 'returned' },
+                    { label: 'public_hand', value: 'public_hand' },
+                  ]}                              
               />}
           />
 
@@ -43,7 +65,7 @@ const UpdateStatusForm=({handleClose})=>{
 }
 
 
-const UpdateStatusSection=()=>{
+const UpdateStatusSection=({id})=>{
   const [open,setOpen]=React.useState(false)
 
   const handleOpen=()=>{
@@ -54,12 +76,14 @@ const UpdateStatusSection=()=>{
     setOpen(false)
   }
   return (
-<Box>
-                      <Button onClick={handleOpen} variant='contained' size='small'>update status</Button>
-                      <ModalUi open={open} handleClose={handleClose}>
-                          <UpdateStatusForm handleClose={handleClose}></UpdateStatusForm>
-                      </ModalUi>
-                    </Box>
+        <>
+          <Button onClick={handleOpen} variant='contained' size='small'>update status</Button>
+          <Box>
+              <ModalUi open={open} handleClose={handleClose}>
+              <UpdateStatusForm id={id} handleClose={handleClose}></UpdateStatusForm>
+          </ModalUi>
+          </Box>
+        </>
   )
 }
 
@@ -103,7 +127,7 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDelete
                     <IconButton onClick={()=>handleDeleteBookIssue({id:item?._id})}>
                       <DeleteIcon  sx={{color:'red'}}></DeleteIcon>
                     </IconButton>
-                    <UpdateStatusSection></UpdateStatusSection>
+                    <UpdateStatusSection id={item?._id}></UpdateStatusSection>
                 </Box>
               </TableCell>
             </TableRow>

@@ -35,7 +35,6 @@ const SectionOne = () => {
     { to: '/admin/dashboard', label: 'Users' },
     { to: '/admin/book_management', label: 'Book Management' },
     { to: '/admin/book_issues', label: 'Book Issues' },
-    { to: '/admin/requested_book_issues', label: 'Requested Book Issues' },
   ];
 
   return (
@@ -63,10 +62,10 @@ const MainSection=()=>{
     return (
          <Box sx={{ flexGrow: 1 ,mt:5}}>
             <Grid container spacing={2}>
-                <Grid size={{xs:12,sm:12,md:2,lg:4}}>
+                <Grid size={{xs:12,sm:12,md:2}}>
                     <SectionOne></SectionOne>
                 </Grid>
-                <Grid size={{xs:12,sm:12,md:10,lg:8}}>
+                <Grid size={{xs:12,sm:12,md:10}}>
                     <Box>
                         <Outlet></Outlet>
                     </Box>

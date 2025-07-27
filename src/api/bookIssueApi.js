@@ -1,10 +1,7 @@
 import axios from "axios"
 const apiUrl=import.meta.env.VITE_API_URL
-const token=localStorage.getItem('access_token') || null;
-const user=localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')):null;
-const userId=user?._id
 
-const createBookIssue=async({bookId,status='pending'})=>{
+const createBookIssue=async({bookId,status='pending',token})=>{
     if(!bookId) return null
 
     try{
@@ -28,7 +25,7 @@ const createBookIssue=async({bookId,status='pending'})=>{
     }
 }
 
-const getSingleBookIssue=async({id})=>{
+const getSingleBookIssue=async({id,token})=>{
     if(!id) return null
 
     try{
@@ -45,13 +42,13 @@ const getSingleBookIssue=async({id})=>{
     }
 }
 
-const getBookIssuesByUserId=async({params})=>{
+const getBookIssuesByUserId=async({params,token,id})=>{
     const {page,limit,sort_by,sort_type}=params
 
     try{
         const query=`?page=${page}&limit=${limit}&sort_type=${sort_type}&sort_by=${sort_by}`;
 
-        const {data}=await axios.get(`${apiUrl}/users/${userId}/bookIssues/${query}`,{
+        const {data}=await axios.get(`${apiUrl}/users/${id}/bookIssues/${query}`,{
             headers:{
                 Authorization: `Bearer ${token}`
             }
@@ -62,7 +59,7 @@ const getBookIssuesByUserId=async({params})=>{
     }
 }
 
-const deleteBookIssueApi=async({id})=>{
+const deleteBookIssueApi=async({id,token})=>{
 
     try{
         const {data}=await axios.delete(`${apiUrl}/bookIssues/${id}`,{
@@ -77,11 +74,15 @@ const deleteBookIssueApi=async({id})=>{
     }
 }
 
-const getAllBookIssues=async(params)=>{
-    const {page,limit,sort_by,sort_type}=params
+const getAllBookIssues=async({params,token})=>{
+    const {page,limit,sort_by,sort_type,search}=params
 
     try{
-        const query=`?page=${page}&limit=${limit}&sort_by=${sort_by}&sort_type=${sort_type}`;
+        let query = `?page=${page}&limit=${limit}&sort_type=${sort_type}&sort_by=${sort_by}`;
+
+        if (search) {
+            query += `&search=${encodeURIComponent(search)}`;
+        }
 
         const {data}=await axios.get(`${apiUrl}/bookIssues/${query}`,{
             headers: {
@@ -95,9 +96,9 @@ const getAllBookIssues=async(params)=>{
     }
 }
 
-const updateStatusApi=async({id})=>{
+const updateStatusApi=async({id,status,token})=>{
     try{
-        const {data}=await axios.patch(`${apiUrl}/bookIssues/${id}`,{
+        const {data}=await axios.patch(`${apiUrl}/bookIssues/${id}`,{status},{
             headers: {
                 Authorization: `Bearer ${token}`
             }

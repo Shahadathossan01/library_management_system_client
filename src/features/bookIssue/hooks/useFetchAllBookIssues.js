@@ -1,14 +1,16 @@
 import { useCallback, useContext, useEffect, useState } from "react"
 import { BookIssueContext } from "../BookIssueProvider"
 import { getAllBookIssues } from "../../../api/bookIssueApi"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
 export const useFetchAllBookIssues=()=>{
+    const {access_token}=useAuthContext()
     const [isLoading,setIsLoading]=useState(false)
     const [error,setError]=useState(null)
 
     const {state,dispatch}=useContext(BookIssueContext)
 
-    const {page,limit,sort_by,sort_type,isDeleteBookIssue,isUpdateStatus}=state
+    const {page,limit,sort_by,sort_type,isDeleteBookIssue,isUpdateStatus,search}=state
 
     const fetchAllBookIssues=useCallback(async()=>{
         try{
@@ -17,10 +19,11 @@ export const useFetchAllBookIssues=()=>{
                 page,
                 limit,
                 sort_by,
-                sort_type
+                sort_type,
+                search
             }
 
-            const result=await getAllBookIssues(params)
+            const result=await getAllBookIssues({params,token:access_token})
 
             if (result?.data.length === 0 && page > 1) {
                 dispatch({
@@ -33,8 +36,8 @@ export const useFetchAllBookIssues=()=>{
             dispatch({
                 type:'ALL_BOOK_ISSUES_FOR_ADMIN',
                 payload:{
-                    data:result.data,
-                    pagination:result.pagination
+                    data:result?.data,
+                    pagination:result?.pagination
                 }
             })
 
@@ -44,7 +47,7 @@ export const useFetchAllBookIssues=()=>{
         }finally{
             setIsLoading(false)
         }
-    },[page,limit,sort_by,sort_type,dispatch,isDeleteBookIssue,isUpdateStatus])
+    },[page,limit,sort_by,sort_type,dispatch,isDeleteBookIssue,isUpdateStatus,search])
 
 
     useEffect(()=>{

@@ -1,11 +1,12 @@
 import { useCallback, useContext, useMemo } from "react"
-import { AdminContext } from "../AdminProvider"
 import axios from "axios"
 import { deleteUserApi } from "../../../api/user"
+import { UserContext } from "../UserProvider"
+import { useAuthContext } from "../../auth/hooks/useAuthContext"
 
-export const useAdminContext=()=>{
-    const {state,dispatch}=useContext(AdminContext)
-
+export const useUserContext=()=>{
+    const {state,dispatch}=useContext(UserContext)
+    const {access_token}=useAuthContext()
     const users=useMemo(()=>{
         return state.users
     },[state.users])
@@ -39,7 +40,7 @@ export const useAdminContext=()=>{
 
     const deleteUser=async({id})=>{
         try{
-            const result=await deleteUserApi({id})
+            const result=await deleteUserApi({id,token:access_token})
 
             dispatch({
                 type: 'DELETE_USER',

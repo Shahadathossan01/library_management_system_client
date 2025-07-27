@@ -9,6 +9,7 @@ const initialState={
     limit:10,
     sort_type:'dsc',
     sort_by:'updatedAt',
+    search:'',
     pagination:{},
     isDeleteBookIssue:null,
     allBookIssuesForAdminData:[],
@@ -28,6 +29,14 @@ const reducer=(state,action)=>{
                 ...state,
                 book:action.payload
             }
+
+        case 'UPDATE_SEARCH_VALUE':
+            return {
+                ...state,
+                search:action.payload,
+                page:1
+            }
+            
         case 'GET_SINGLE_BOOKISSUE':
             return {
                 ...state,
