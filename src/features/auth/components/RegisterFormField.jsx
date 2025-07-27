@@ -26,7 +26,7 @@ const RegisterFormField = () => {
       <Card sx={{ width: '100%', maxWidth: 450, boxShadow: 3 }}>
         <CardContent>
           <Typography variant="h5" align="center" gutterBottom fontWeight={600}>
-            Register
+            Register Now
           </Typography>
 
           <form onSubmit={handleSubmit(onSubmit)}>
