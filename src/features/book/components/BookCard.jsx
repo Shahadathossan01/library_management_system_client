@@ -29,7 +29,7 @@ const BookCard = ({ book }) => {
         <Typography variant="h6" gutterBottom>{name}</Typography>
         <Typography variant="body1">Author: {authorName}</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          <strong>In Stock: {inStock}</strong>
+          <strong>In Stock: <span style={{color:'red'}}>{inStock}</span></strong>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <strong>Status: {status}</strong>
