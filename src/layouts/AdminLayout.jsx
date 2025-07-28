@@ -11,7 +11,7 @@ const Header=()=>{
         navigate('/')
     }
     return (
-        <Box sx={{display:'flex',justifyContent:'flex-end'}}>
+        <Box sx={{display:'flex',justifyContent:'flex-end',p:2}}>
             <Button onClick={handleLogout} variant="contained" size="small">Logout</Button>
         </Box>
     )

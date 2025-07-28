@@ -44,8 +44,8 @@ const UserManagementContent = () => {
   };
 
     return (
-        <Box>
-            <Typography>user management section</Typography>
+        <Box sx={{mt:2,mb:10}}>
+            <Typography variant='h4' sx={{fontWeight:'bold',textAlign:'center'}}>User Management</Typography>
             <SelectField label='Filter by role' value={filterValue} onChange={handleChangeFilterValue} options={[{value:'all',label:'All'},{value:'user',label:'User'},{value:'admin',label:'Admin'}]}></SelectField>
             <UserTable users={users} page={page} limit={limit} totalPage={totalPage}></UserTable>
 

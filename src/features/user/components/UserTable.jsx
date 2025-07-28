@@ -9,10 +9,17 @@ import Paper from '@mui/material/Paper';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useUserContext } from '../hooks/useUserContext';
 import { IconButton } from '@mui/material';
+import { toast } from 'react-toastify';
 
 
 export const UserTable=({users,page=1,limit=10})=>{
     const {deleteUser}=useUserContext()
+
+    const handleDeleteUser=({id})=>{
+      deleteUser({id})
+      toast.success('User deleted successfully!')
+    }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -51,7 +58,7 @@ export const UserTable=({users,page=1,limit=10})=>{
                     <ClearIcon></ClearIcon>
                 </IconButton>
                   ):(
-                    <IconButton onClick={()=>deleteUser({id:item?._id})}>
+                    <IconButton onClick={()=>handleDeleteUser({id:item?._id})}>
                     <ClearIcon sx={{color:'red'}}></ClearIcon>
                 </IconButton>
                   )

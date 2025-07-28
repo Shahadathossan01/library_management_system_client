@@ -29,6 +29,7 @@ export const useFetchUsers=()=>{
             // ✅ If users are empty AND page > 1 → go to previous page
             
             if (result.data.length === 0 && page > 1) {
+
                 dispatch({
                 type: 'UPDATE_PAGE',
                 payload: page - 1,

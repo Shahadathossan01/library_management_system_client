@@ -15,7 +15,7 @@ export const useUserContext=()=>{
     },[state.pagination])
 
      const updatePage=useCallback((page)=>{
-        console.log(page)
+
             dispatch({
                 type:'UPDATE_PAGE',
                 payload:page
@@ -45,6 +45,8 @@ export const useUserContext=()=>{
                 type: 'DELETE_USER',
                 payload:result
             })
+
+            return result;
         }catch(error){
             console.log(error)
         }
