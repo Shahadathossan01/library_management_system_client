@@ -63,7 +63,7 @@ const totalPage = allBookIssuesForAdminPagination?.totalPage || 1;
             
             
             />
-            <BookIssuesTable page={page} limit={limit} bookIssues={allBookIssuesForAdminData} handleDeleteBookIssue={deleteBookIssue}></BookIssuesTable>
+            <BookIssuesTable role='admin' page={page} limit={limit} bookIssues={allBookIssuesForAdminData} handleDeleteBookIssue={deleteBookIssue}></BookIssuesTable>
 
             {
                 totalPage>1 && (

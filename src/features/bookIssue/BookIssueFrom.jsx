@@ -81,7 +81,7 @@ const BookIssueFromContent = ({id}) => {
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>
-               <strong>Book Author:</strong> {book?.authorName}
+               <strong>Author Name:</strong> {book?.authorName}
               </Typography>
 
               <Typography variant="subtitle1" gutterBottom>

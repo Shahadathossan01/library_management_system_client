@@ -14,6 +14,7 @@ import SelectField from '../../../components/ui/SelectField';
 import ModalUi from '../../../components/shared/ModalUi';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { useAuthContext } from '../../auth/hooks/useAuthContext';
 
 const UpdateStatusForm=({handleClose,id})=>{
   const {handleSubmit,control,reset}=useForm()
@@ -88,8 +89,8 @@ const UpdateStatusSection=({id})=>{
 }
 
 
-export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDeleteBookIssue}) {
-    
+export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDeleteBookIssue,role='user'}) {
+    const {user}=useAuthContext()
 
   return (
     <TableContainer component={Paper}>
@@ -101,7 +102,7 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDelete
             <TableCell align="right">Author Name</TableCell>
             <TableCell align="right">Status</TableCell>
             <TableCell align="right">Issue Date</TableCell>
-            <TableCell align="right">Action</TableCell>
+            <TableCell align="center">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -123,11 +124,25 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDelete
               <TableCell align="right">{item?.status}</TableCell>
               <TableCell align="right">{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</TableCell>
               <TableCell  align="right">
-                <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                    <IconButton onClick={()=>handleDeleteBookIssue({id:item?._id})}>
-                      <DeleteIcon  sx={{color:'red'}}></DeleteIcon>
-                    </IconButton>
-                    <UpdateStatusSection id={item?._id}></UpdateStatusSection>
+                <Box sx={{display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>
+                    {
+                      role==='admin' && <UpdateStatusSection id={item?._id}></UpdateStatusSection>
+                    }
+
+                    {
+                      (item?.status === 'overdue' || item?.status === 'public_hand') && user?.role !== 'admin' ? (
+                        <IconButton disabled onClick={() => handleDeleteBookIssue({ id: item?._id })}>
+                          <DeleteIcon sx={{ color: 'black' }} />
+                        </IconButton>
+                      ) : (
+                        <IconButton onClick={() => handleDeleteBookIssue({ id: item?._id })}>
+                          <DeleteIcon sx={{ color: 'red' }} />
+                        </IconButton>
+                      )
+                    }
+
+
+                    
                 </Box>
               </TableCell>
             </TableRow>

@@ -34,7 +34,7 @@ const BookIssuesContent = () => {
     }
 
     return (
-        <Box>
+        <Box sx={{mt:15}}>
             <BookIssuesTable bookIssues={bookIssues} limit={limit} page={page} handleDeleteBookIssue={deleteBookIssue}></BookIssuesTable>
             {
                 totalPage>1 && (
