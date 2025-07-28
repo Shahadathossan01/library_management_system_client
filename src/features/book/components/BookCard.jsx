@@ -19,11 +19,11 @@ const BookCard = ({ book }) => {
     >
       <CardMedia
         component="img"
-        height="200px"
+        height="300px"
         width="300px"
         image={image}
         alt={name}
-        sx={{ objectFit: "cover" }}
+        sx={{ objectFit: "contained" }}
       />
       <CardContent>
         <Typography variant="h6" gutterBottom>{name}</Typography>

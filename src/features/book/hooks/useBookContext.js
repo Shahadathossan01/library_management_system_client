@@ -22,6 +22,7 @@ export const useBookContext=()=>{
     },[dispatch])
 
     const  deleteBook=async({id})=>{
+        console.log('deleteBook useBookContext',id)
         try{
             const result=await deleteBookApi({id,token:access_token})
 

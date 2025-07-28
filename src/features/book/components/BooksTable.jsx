@@ -14,6 +14,11 @@ import EditBook from './EditBook';
 
 export const BooksTable=({books,page=1,limit=10})=>{
   const {deleteBook}=useBookContext()
+
+  const handleDeleteBook=({id})=>{
+    console.log(id)
+    deleteBook({id})
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -54,7 +59,7 @@ export const BooksTable=({books,page=1,limit=10})=>{
               <TableCell align="center">
                 <Box sx={{display:'flex',justifyContent:'center',alignItems:'center',gap:1}}>
                 <EditBook id={item?._id}></EditBook>
-                    <IconButton onClick={()=>deleteBook({id:item?._id})}>
+                    <IconButton onClick={()=>handleDeleteBook({id:item?._id})}>
                     <ClearIcon></ClearIcon>
                 </IconButton>
                 </Box>

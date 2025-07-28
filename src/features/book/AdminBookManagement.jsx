@@ -22,11 +22,14 @@ export const AdminBookManagement = () => {
 AdminBookManagement.displayName='AdminBookManagement'
 
 const AdminBookManagementContent=()=>{
-    const {isLoading,error}=useFetchBooks()
+    const {isLoading}=useFetchBooks()
     const {books,pagination,updatePage,updateSearchValue}=useBookContext()
   const [filterValue,setFilterValue]=useState('all')
-    isLoading && <LoadingUi></LoadingUi>
-    console.log(pagination)
+
+    if(isLoading && books){
+        return <LoadingUi></LoadingUi>
+    }
+
     const {page,limit,totalPage}=pagination
 
     const handleChange=(event,value)=>{
@@ -42,8 +45,8 @@ const AdminBookManagementContent=()=>{
   };
 
     return (
-        <Box sx={{mt:2,mb:5}}>
-            <Typography sx={{textAlign:'center'}}>Book Management</Typography>
+        <Box sx={{mt:2,mb:10}}>
+            <Typography variant='h4' sx={{fontWeight:'bold',textAlign:'center'}}>Book Management</Typography>
 
             <Box sx={{display:'flex',justifyContent:'space-between',px:3}}>
                 <SelectField label='Filter by status' value={filterValue} onChange={handleChangeFilterValue} options={[{value:'all',label:'all'},{value:'available',label:'abailable'},{value:'out_of_stock',label:'out_of_stock'}]}></SelectField>

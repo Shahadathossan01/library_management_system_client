@@ -31,14 +31,18 @@ const BookManagementContent=()=>{
     }
 
     if(isLoading) return <LoadingUi></LoadingUi>
-    if(error) return <ShowError></ShowError>
+
 
     return(
         <Box sx={{mt:10}}>
         <Typography sx={{textAlign:'center',fontWeight:'bold'}} variant="h3">Books</Typography>
         <Box sx={{bgcolor:'#ebcbae',p:1}}>
             <BookLists isLoading={isLoading} books={books}></BookLists>
-            <PaginationControlled sx={{justifyContent:'center'}} page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>
+            {
+                totalPage>1 && (
+                    <PaginationControlled sx={{justifyContent:'center'}} page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>
+                )
+            }
         </Box>
         </Box>
     )

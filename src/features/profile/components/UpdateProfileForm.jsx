@@ -5,10 +5,11 @@ import ButtonField from '../../../components/ui/ButtonField';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useUserProfileContext } from '../hooks/useUserProfileContext';
+import { toast } from 'react-toastify';
 const UpdateProfileForm = ({handleClose}) => {
     const {handleSubmit,control,reset}=useForm()
     const {updateProfile}=useUserProfileContext()
-    const onSubmit=(data)=>{
+    const onSubmit=async(data)=>{
         const formData = new FormData();
 
         for (const key in data) {
@@ -17,9 +18,12 @@ const UpdateProfileForm = ({handleClose}) => {
         }
         }
 
-        updateProfile({formData})
-        reset()
-        handleClose()
+        const {code}=await updateProfile({formData})
+        if(code === 200){
+            toast.success('updated successfully!')
+            reset()
+            handleClose()
+        }
     }
 
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { BookIssueProvider } from './BookIssueProvider';
 import { useFetchBookById } from './hooks/useFetchBookById';
 import ImageField from '../../components/ui/ImageField';
@@ -8,8 +8,7 @@ import { Avatar, Box, Button, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useBookIssueContext } from './hooks/useBookIssueContext';
 import { toast } from 'react-toastify';
-const token=localStorage.getItem('access_token') || null;
-
+import { useAuthContext } from '../auth/hooks/useAuthContext';
 
 export const BookIssueFrom = () => {
     const {id}=useParams()
@@ -25,12 +24,13 @@ BookIssueFrom.displayName='BookIssueFrom'
 
 const BookIssueFromContent = ({id}) => {
     const {book}=useFetchBookById({id})
-    const user=localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):null
+    const {access_token,user}=useAuthContext()
     const {create}=useBookIssueContext()
     const navigate=useNavigate()
+    const location=useLocation()
     const handleClick=async()=>{
 
-      if(!token){
+      if(!access_token){
         navigate('/login', { state: { from: location }, replace: true })
         return
       }

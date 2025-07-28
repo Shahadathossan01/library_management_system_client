@@ -10,6 +10,7 @@ import ImageField from '../../components/ui/ImageField';
 import UploadImageButton from '../../components/ui/UploadImageButton';
 import { Controller, useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
+import { toast } from 'react-toastify';
 
 const ProfileRow = ({ label, value }) => (
   <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, flexWrap: 'wrap' }}>
@@ -39,10 +40,13 @@ const ProfileManagementContent = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const formData = new FormData();
     formData.append('avator', data.profile[0]);
-    uploadProfileImage({ formData });
+    const {code}=await uploadProfileImage({ formData });
+    if(code === 200){
+      toast.success('Update profile picture!')
+    }
   };
 
   return (

@@ -40,6 +40,7 @@ const UpdateStatusForm=({handleClose,id})=>{
   return (
     <Box sx={{display:'flex',justifyContent:'center'}}>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
           <Controller
               name='status'
               control={control}
@@ -57,7 +58,6 @@ const UpdateStatusForm=({handleClose,id})=>{
               />}
           />
 
-          <Box>
             <Button type='submit' size='small' variant='contained'>confirm</Button>
           </Box>
       </form>

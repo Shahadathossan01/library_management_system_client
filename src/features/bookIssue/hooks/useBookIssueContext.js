@@ -7,7 +7,7 @@ import { useAuthContext } from "../../auth/hooks/useAuthContext"
 export const useBookIssueContext=()=>{
     const {state,dispatch}=useContext(BookIssueContext)
 
-    const {access_token,user}=useAuthContext()
+    const {access_token}=useAuthContext()
 
     const create=async({bookId,status='pending'})=>{
         try{

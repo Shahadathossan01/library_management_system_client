@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookIssueProvider } from './BookIssueProvider';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useFetchAllBookIssues } from './hooks/useFetchAllBookIssues';
 import { useBookIssueContext } from './hooks/useBookIssueContext';
 import LoadingUi from '../../components/shared/LoadingUi';
@@ -24,8 +24,11 @@ const BookIssuesManagementAdminContent = () => {
     const {isLoading,error}=useFetchAllBookIssues()
     console.log('error',error)
     const [filterValue,setFilterValue]=useState('all')
-    isLoading && <LoadingUi></LoadingUi>
     const {allBookIssuesForAdminData,allBookIssuesForAdminPagination,deleteBookIssue,updatePage,updateSearchValue}=useBookIssueContext()
+
+    if(isLoading && allBookIssuesForAdminData){
+        return <LoadingUi></LoadingUi>
+    }
 
     
     const page = allBookIssuesForAdminPagination?.page || 1;
@@ -46,8 +49,8 @@ const totalPage = allBookIssuesForAdminPagination?.totalPage || 1;
   };
 
     return (
-        <>
-            <Typography>Book Issue Management</Typography>
+        <Box sx={{mt:2,mb:10}}>
+            <Typography variant='h4' sx={{fontWeight:'bold',textAlign:'center'}}>Book Issue Management</Typography>
             <SelectField
                 label='Filter by status'
                 value={filterValue}
@@ -75,7 +78,7 @@ const totalPage = allBookIssuesForAdminPagination?.totalPage || 1;
                 )
             }
             
-        </>
+        </Box>
     );
 };
 

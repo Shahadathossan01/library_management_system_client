@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useUserContext } from '../hooks/useUserContext';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 
 
@@ -35,6 +35,9 @@ export const UserTable=({users,page=1,limit=10})=>{
           </TableRow>
         </TableHead>
         <TableBody>
+          {
+            users?.length===0 && <Typography sx={{p:2}}>No data!</Typography>
+          }
           {users?.map((item,index) => (
             <TableRow
               key={item?._id}

@@ -12,7 +12,7 @@ const LeftSide = ({ book }) => {
                 image={book?.image}
                 alt={book?.name}
                 height="350"
-                sx={{ objectFit: 'cover' }}
+                sx={{ objectFit: 'contained' }}
             />
             <CardContent>
                 <Stack spacing={1}>

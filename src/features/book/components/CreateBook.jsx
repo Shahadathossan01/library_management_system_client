@@ -36,8 +36,8 @@ const CreateBookForm=({handleClose})=>{
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography>Add new Book</Typography>
-                <Box sx={{ flexGrow: 1 }}>
+                <Typography variant='h4' textAlign='center'>Add new Book</Typography>
+                <Box sx={{ flexGrow: 1 ,mt:2}}>
                     <Grid container spacing={2}>
                         <Grid size={{xs:12,sm:6}}>
                                 <Controller
@@ -112,18 +112,19 @@ const CreateBookForm=({handleClose})=>{
                                 >Upload Book Image</UploadImageButton>}
                             />
 
-                            <Box sx={{mt:2}}>
-                                <ImageField img={preview} height='80px' width='80px' rounded='10%'></ImageField>
-                            </Box>
+                            {
+                                preview && (
+                                    <Box sx={{mt:2}}>
+                                        <ImageField img={preview} height='80px' width='80px' rounded='10%'></ImageField>
+                                    </Box>
+                                )
+                            }
  
                         </Grid>
                     </Grid>
                 </Box>
                 
-
-
-
-                <Button type='submit' variant='contained' size='small'>Submit</Button>
+                <Button sx={{mt:3}} type='submit' variant='contained' fullWidth size='small'>Submit</Button>
             </form>
         </>
     )

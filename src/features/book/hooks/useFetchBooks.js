@@ -21,8 +21,8 @@ export const useFetchBooks=()=>{
             }
 
             const result=await getBooks(params)
-
-            if (result.data.length === 0 && page > 1) {
+            
+            if (result?.data?.length === 0 && page > 1) {
                 dispatch({
                 type: 'UPDATE_PAGE',
                 payload: page - 1,

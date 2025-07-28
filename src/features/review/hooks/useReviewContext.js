@@ -36,11 +36,18 @@ export const useReviewContext=()=>{
 
     const create=useCallback(async({id,content})=>{
         const result=await createReview({id,content,token:access_token})
-
-        dispatch({
-            type: 'CREATE_VEVIEW',
-            payload: result
-        })
+        
+        if(result?.code === 201){
+            dispatch({
+                type: 'CREATE_VEVIEW',
+                payload: result
+            })
+        
+            return {
+                code:201,
+                message:result?.message
+            }
+        }
     },[dispatch])
 
 

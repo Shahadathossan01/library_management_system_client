@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import InputField from '../../../components/ui/InputField';
 import ButtonField from '../../../components/ui/ButtonField';
 import { useReviewContext } from '../hooks/useReviewContext';
+import { toast } from 'react-toastify';
 
 const ReviewCreateFrom = ({id}) => {
     const {control,handleSubmit,formState:{errors}}=useForm({
@@ -12,8 +13,11 @@ const ReviewCreateFrom = ({id}) => {
         }
     })
     const {create}=useReviewContext()
-    const onSubmit=(data)=>{
-        create({id,content:data.review})
+    const onSubmit=async(data)=>{
+       const {code,message}=await create({id,content:data.review})
+       if(code === 201){
+        toast.success(message)
+       }
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

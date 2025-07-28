@@ -13,11 +13,17 @@ export const useUserProfileContext=()=>{
     const updateProfile=async({formData})=>{
         try{
             const res=await updateProfileApi({formData,token:access_token,id:user?._id})
+            
+            if(res?.code === 200){
+                dispatch({
+                    type:'UPDATE_PROFILE',
+                    payload:res
+                })
 
-            dispatch({
-                type:'UPDATE_PROFILE',
-                payload:res
-            })
+                return {
+                    code:res?.code
+                }
+            }
         }catch(error){
             console.log(error)
         }
@@ -26,11 +32,16 @@ export const useUserProfileContext=()=>{
     const uploadProfileImage=async({formData})=>{
         try{
             const res=await updateProfileApi({formData,token:access_token,id:user?._id})
+            if(res?.code === 200){
+                dispatch({
+                    type:'UPDATE_PROFILE',
+                    payload:res
+                })
 
-            dispatch({
-                type:'UPDATE_PROFILE',
-                payload:res
-            })
+                return {
+                    code:res?.code
+                }
+            }
         }catch(error){
             console.log(error)
         }

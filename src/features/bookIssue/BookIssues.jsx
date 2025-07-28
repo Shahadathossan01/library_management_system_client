@@ -35,6 +35,7 @@ const BookIssuesContent = () => {
 
     return (
         <Box sx={{mt:15}}>
+            <Typography variant='h5' sx={{fontWeight:'bold',textAlign:'center',mb:2}}>Issued Books List</Typography>
             <BookIssuesTable bookIssues={bookIssues} limit={limit} page={page} handleDeleteBookIssue={deleteBookIssue}></BookIssuesTable>
             {
                 totalPage>1 && (

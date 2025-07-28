@@ -21,14 +21,15 @@ export const UserManagement = () => {
 UserManagement.displayName='UserManagement'
 
 const UserManagementContent = () => {
-    const {isLoading,error}=useFetchUsers()
+    const {isLoading}=useFetchUsers()
+    const [filterValue,setFilterValue]=useState('all')
     const {users,pagination,updatePage,updateSearchValue}=useUserContext()
     const {page,limit,totalPage}=pagination
     
-    isLoading && <LoadingUi></LoadingUi>
+    if(isLoading && users){
+        return <LoadingUi></LoadingUi>
+    }
     
-    const [filterValue,setFilterValue]=useState('all')
-
     
     const handleChange=(event,value)=>{
         const numberValue=Number(value)

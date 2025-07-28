@@ -28,7 +28,7 @@ const ReviewManagementContent = ({id}) => {
     const {reviews,pagination}=useReviewContext()
 
     return (
-        <Box sx={{mt:10}}>
+        <Box sx={{mt:10,mb:10}}>
             <TextField sx={{textAlign:'center'}}>Reviews</TextField>
             <ReviewCreateFrom id={id}></ReviewCreateFrom>
             <ReviewLists reviews={reviews} isLoading={isLoading} error={error}></ReviewLists>
