@@ -46,7 +46,7 @@ const ProfileManagementContent = () => {
   };
 
   return (
-    <Box sx={{ mt: 4, p: { xs: 2, sm: 4 }, width: '100%'}}>
+    <Box sx={{ mt: 15, p: { xs: 2, sm: 4 }, width: '100%'}}>
       <Grid container spacing={4} sx={{ flexDirection: { xs: 'column-reverse', md: 'row' } }}>
         {/* Profile Details */}
         <Grid size={{xs:12,md:6}}>
@@ -87,7 +87,7 @@ const ProfileManagementContent = () => {
           <Paper elevation={3} sx={{ p: { xs: 3, sm: 5 }, borderRadius: 2, textAlign: 'center' ,width:'80%'}}>
             <ImageField
               img={preview || profileData?.data?.profile?.avator}
-              rounded="50px"
+              rounded="10px"
               sx={{ width: 150, height: 150, mx: 'auto', mb: 2 }}
             />
 

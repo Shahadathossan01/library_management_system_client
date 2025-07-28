@@ -14,10 +14,10 @@ const LeftSide = ({ book }) => {
             <CardContent>
                 <Stack spacing={1}>
                     <Typography variant="h6" component="h2">
-                        {book?.name || 'Unknown Title'}
+                       Book Name: {book?.name || 'Unknown Title'}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary">
-                       Author: {book?.authorName || 'Unknown Author'}
+                       Author Name: {book?.authorName || 'Unknown Author'}
                     </Typography>
                 </Stack>
             </CardContent>

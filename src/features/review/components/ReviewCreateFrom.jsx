@@ -17,15 +17,15 @@ const ReviewCreateFrom = ({id}) => {
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{display:'flex', justifyContent:'center',gap:5}}>
+            <Box sx={{display:'flex',flexWrap:'wrap',justifyContent:'center',gap:2}}>
                 <Controller
                     name='review'
                     control={control}
                     rules={{required:'This is required'}}
-                    render={({field})=><InputField label='Review' error={!! errors.review} helperText={errors.review?.message} {...field} />}
+                    render={({field})=><InputField size='small' label='Review' error={!! errors.review} helperText={errors.review?.message} {...field} />}
                 />
 
-                <ButtonField>Add Review</ButtonField>
+                <ButtonField size='small'>Add Review</ButtonField>
             </Box>
         </form>
     )

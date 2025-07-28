@@ -62,6 +62,22 @@ export const useBookContext=()=>{
         }
     }
 
+    const updateSearchValue=(value)=>{
+        if(value==='all'){
+            dispatch({
+                type:'UPDATE_SEARCH_VALUE',
+                payload:''
+            })
+            return;
+        }
+
+        dispatch({
+            type:'UPDATE_SEARCH_VALUE',
+            payload:value
+        })
+    }
+
+
 
 
     return {
@@ -70,6 +86,7 @@ export const useBookContext=()=>{
         updatePage,
         deleteBook,
         createBook,
-        editBook
+        editBook,
+        updateSearchValue
     }
 }

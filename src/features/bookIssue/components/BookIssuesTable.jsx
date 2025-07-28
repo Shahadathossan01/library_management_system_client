@@ -96,34 +96,34 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDelete
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
-          <TableRow>
-            <TableCell>NO.</TableCell>
-            <TableCell align="right">Book Name</TableCell>
-            <TableCell align="right">Author Name</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Issue Date</TableCell>
-            <TableCell align="center">Action</TableCell>
+          <TableRow sx={{bgcolor:'gray'}}>
+            <TableCell sx={{color:'white'}}>NO.</TableCell>
+            <TableCell sx={{color:'white',width:'30%'}} align="center">Book Name</TableCell>
+            <TableCell sx={{color:'white',width:'30%'}} align="center">Author Name</TableCell>
+            <TableCell sx={{color:'white',width:'10%'}} align="center">Status</TableCell>
+            <TableCell sx={{color:'white',width:'10%'}} align="center">Issue Date</TableCell>
+            <TableCell sx={{color:'white',width:'20%'}} align="center">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {
             bookIssues?.length===0 ? (
-              <Typography sx={{p:2}}>No Book issues yet!</Typography>
+              <Typography sx={{p:2}}>No data!</Typography>
             ):
             (
               bookIssues?.map((item,index) => (
             <TableRow
               key={index}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } ,height:'5px'}}
             >
               <TableCell component="th" scope="row">
                 {(page - 1) * limit + index + 1}
               </TableCell>
-              <TableCell align="right">{item?.book?.name}</TableCell>
-              <TableCell align="right">{item?.user?.username}</TableCell>
-              <TableCell align="right">{item?.status}</TableCell>
-              <TableCell align="right">{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</TableCell>
-              <TableCell  align="right">
+              <TableCell align="center">{item?.book?.name}</TableCell>
+              <TableCell align="center">{item?.user?.username}</TableCell>
+              <TableCell align="center">{item?.status}</TableCell>
+              <TableCell align="center">{format(new Date(item?.createdAt), 'MM/dd/yyyy')}</TableCell>
+              <TableCell  align="center">
                 <Box sx={{display:'flex',justifyContent:'space-evenly',alignItems:'center'}}>
                     {
                       role==='admin' && <UpdateStatusSection id={item?._id}></UpdateStatusSection>
@@ -131,7 +131,7 @@ export default function BookIssuesTable({bookIssues,limit=10,page=1,handleDelete
 
                     {
                       (item?.status === 'overdue' || item?.status === 'public_hand') && user?.role !== 'admin' ? (
-                        <IconButton disabled onClick={() => handleDeleteBookIssue({ id: item?._id })}>
+                        <IconButton disabled>
                           <DeleteIcon sx={{ color: 'black' }} />
                         </IconButton>
                       ) : (

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
+import { toast } from 'react-toastify';
 
 const RightSide = ({ book }) => {
     return (
-        <Box sx={{ padding: 2, boxShadow: 2, borderRadius: 2 ,mt:{xs:2,sm:18}}}>
+        <Box sx={{ padding: 2, boxShadow: 2, borderRadius: 2 ,mt:{xs:2,sm:18},border:'1px solid gray',width:'60%',display:'flex',justifyContent:'center'}}>
             <Stack spacing={2}>
                 <Typography variant="subtitle1">
                     <strong>Status:</strong> {book?.status || 'N/A'}
@@ -12,11 +13,17 @@ const RightSide = ({ book }) => {
                 <Typography variant="subtitle1">
                     <strong>In Stock:</strong> {book?.inStock ?? 0}
                 </Typography>
-                <Link to={`/bookIssueFrom/${book?._id}`}>
-                    <Button disabled={(book?.status==='available' || book?.inStock ==0) && false} variant="contained" color="primary">
+                {book?.inStock> 0 ? (
+                    <NavLink to={`/bookIssueFrom/${book._id}`}>
+                    <Button variant="contained" size="small">
+                        Book Issue
+                    </Button>
+                    </NavLink>
+                ) : (
+                    <Button onClick={()=>{toast.error('Out of Stock!')}} sx={{bgcolor:'#bdbdbd'}} variant="contained" size="small">
                     Book Issue
-                </Button>
-                </Link>
+                    </Button>
+                )}
             </Stack>
         </Box>
     );

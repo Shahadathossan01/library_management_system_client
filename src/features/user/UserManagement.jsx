@@ -24,10 +24,11 @@ const UserManagementContent = () => {
     const {isLoading,error}=useFetchUsers()
     const {users,pagination,updatePage,updateSearchValue}=useUserContext()
     const {page,limit,totalPage}=pagination
-
+    
+    isLoading && <LoadingUi></LoadingUi>
+    
     const [filterValue,setFilterValue]=useState('all')
 
-    isLoading && <LoadingUi></LoadingUi>
     
     const handleChange=(event,value)=>{
         const numberValue=Number(value)

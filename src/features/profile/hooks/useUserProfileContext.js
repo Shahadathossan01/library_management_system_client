@@ -12,7 +12,7 @@ export const useUserProfileContext=()=>{
 
     const updateProfile=async({formData})=>{
         try{
-            const res=await updateProfileApi({formData,token:access_token})
+            const res=await updateProfileApi({formData,token:access_token,id:user?._id})
 
             dispatch({
                 type:'UPDATE_PROFILE',

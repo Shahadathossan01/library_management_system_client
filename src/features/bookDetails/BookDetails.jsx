@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Divider } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router';
 import { useFetchBookById } from './hooks/useFetchBookById';
@@ -24,13 +24,13 @@ const BookDetailsContent = () => {
     const {id}=useParams()
     const {isLoading,error}=useFetchBookById({id})
     const {book}=useBookDetailsContext()
-
     if(isLoading) return <LoadingUi></LoadingUi>
     if(error) return <ShowError></ShowError>
+
     return (
-        <Box>
+        <Box sx={{mt:15}}>
             <BookSection book={book}></BookSection>
-            <Summary book={book}></Summary>
+            <Divider></Divider>
             <ReviewManagement id={book?._id}></ReviewManagement>
         </Box>
     );

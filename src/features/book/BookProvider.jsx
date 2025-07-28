@@ -11,7 +11,8 @@ const initialState={
     pagination:{},
     isDeleted:null,
     createBook:null,
-    editBook:null
+    editBook:null,
+    isUpdateStatus:null
 }
 
 const reducer=(state,action)=>{
@@ -50,6 +51,13 @@ const reducer=(state,action)=>{
             return {
                 ...state,
                 editBook:action.payload
+            }
+
+        case 'UPDATE_SEARCH_VALUE':
+            return {
+                ...state,
+                search:action.payload,
+                page:1
             }
     }
 }

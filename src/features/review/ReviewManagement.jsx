@@ -23,14 +23,20 @@ export const ReviewManagement = ({id}) => {
 
 const ReviewManagementContent = ({id}) => {
     const {isLoading,error}=useFetchReviewByBookId({id})
-    const {reviews,pagination,updatePage}=useReviewContext()
+
+    {isLoading && <LoadingUi></LoadingUi>}
+    const {reviews,pagination}=useReviewContext()
 
     return (
-        <Box sx={{mt:10,display:'flex',flexDirection:'column',justifyContent:'center'}}>
+        <Box sx={{mt:10}}>
             <TextField sx={{textAlign:'center'}}>Reviews</TextField>
             <ReviewCreateFrom id={id}></ReviewCreateFrom>
             <ReviewLists reviews={reviews} isLoading={isLoading} error={error}></ReviewLists>
-            <Pagination></Pagination>
+            {
+                pagination?.totalPage>1 && (
+                    <Pagination></Pagination>
+                )
+            }
         </Box>
     );
 };

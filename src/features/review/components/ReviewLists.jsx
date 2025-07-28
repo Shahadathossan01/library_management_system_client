@@ -9,16 +9,18 @@ const ReviewLists = ({reviews,isLoading,error}) => {
     if(isLoading) return <LoadingUi></LoadingUi>
     if(error) return <ShowError></ShowError>
     return (
-        <Box sx={{px:20}}>
-            {
+        <Box sx={{display:'flex',justifyContent:'center'}}>
+            <Box>
+                {
                 reviews?.length===0?(
                     <NoData></NoData>
                 ) : (
-                    reviews?.map((review)=>(
-                        <ReviewListItem key={review._id} review={review}></ReviewListItem>
+                    reviews?.map((review,index)=>(
+                        <ReviewListItem key={review._id} review={review} index={index}></ReviewListItem>
                     ))
                 )
             }
+            </Box>
         </Box>
     );
 };

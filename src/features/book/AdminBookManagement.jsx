@@ -6,6 +6,8 @@ import LoadingUi from "../../components/shared/LoadingUi";
 import CreateBook from "./components/CreateBook";
 import { BooksTable } from "./components/BooksTable";
 import PaginationControlled from "../../components/shared/PaginationControlled";
+import { useState } from "react";
+import SelectField from "../../components/ui/SelectField";
 
 export const AdminBookManagement = () => {
     return (
@@ -21,25 +23,33 @@ AdminBookManagement.displayName='AdminBookManagement'
 
 const AdminBookManagementContent=()=>{
     const {isLoading,error}=useFetchBooks()
-    const {books,pagination,updatePage}=useBookContext()
-
+    const {books,pagination,updatePage,updateSearchValue}=useBookContext()
+  const [filterValue,setFilterValue]=useState('all')
     isLoading && <LoadingUi></LoadingUi>
     console.log(pagination)
     const {page,limit,totalPage}=pagination
 
-    console.log(books)
     const handleChange=(event,value)=>{
         const numberValue=Number(value)
         updatePage(numberValue)
     }
 
+    const handleChangeFilterValue = (event) => {
+        const newFilterValue=event.target.value
+        setFilterValue(newFilterValue)
+        updateSearchValue(newFilterValue)
+
+  };
+
     return (
-        <Box>
+        <Box sx={{mt:2,mb:5}}>
             <Typography sx={{textAlign:'center'}}>Book Management</Typography>
-            <CreateBook></CreateBook>
-            <Box>
-                <BooksTable books={books} page={page} limit={limit} ></BooksTable>
+
+            <Box sx={{display:'flex',justifyContent:'space-between',px:3}}>
+                <SelectField label='Filter by status' value={filterValue} onChange={handleChangeFilterValue} options={[{value:'all',label:'all'},{value:'available',label:'abailable'},{value:'out_of_stock',label:'out_of_stock'}]}></SelectField>
+                <CreateBook></CreateBook>
             </Box>
+                <BooksTable books={books} page={page} limit={limit} ></BooksTable>
             {
                 totalPage>1 && (
                     <PaginationControlled page={Number(page)} count={totalPage} handleChange={handleChange}></PaginationControlled>

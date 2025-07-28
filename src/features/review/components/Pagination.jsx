@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import PaginationControlled from "../../../components/shared/PaginationControlled";
 import { useReviewContext } from "../hooks/useReviewContext";
 
@@ -13,7 +14,9 @@ const Pagination = () => {
         updatePage(numberValue)
     }
     return (
-        <PaginationControlled sx={{justifyContent: 'center'}} handleChange={handleChange} page={Number(page)} count={totalPage}></PaginationControlled>
+        <Box sx={{mt:5}}>
+            <PaginationControlled sx={{justifyContent: 'center'}} handleChange={handleChange} page={Number(page)} count={totalPage}></PaginationControlled>
+        </Box>
     );
 };
 

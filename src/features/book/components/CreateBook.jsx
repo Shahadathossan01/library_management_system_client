@@ -139,8 +139,8 @@ const CreateBook = () => {
         setOpen(false)
     }
     return (
-        <Box sx={{display:'flex',justifyContent:'flex-end'}}>
-            <Button onClick={handleOpen} size='small' variant='contained' color='secondary'>Create</Button>
+        <Box sx={{mt:1}}>
+            <Button sx={{height:'40px',width:'100px'}} onClick={handleOpen} size='small' variant='contained' color='secondary'>Create</Button>
 
             <ModalUi open={open} handleClose={handleClose}
             >
