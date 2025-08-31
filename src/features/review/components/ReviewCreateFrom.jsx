@@ -1,12 +1,17 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import InputField from '../../../components/ui/InputField';
 import ButtonField from '../../../components/ui/ButtonField';
 import { useReviewContext } from '../hooks/useReviewContext';
 import { toast } from 'react-toastify';
+import { useAuthContext } from '../../auth/hooks/useAuthContext';
+import { useLocation, useNavigate } from 'react-router';
 
 const ReviewCreateFrom = ({id}) => {
+    const {access_token}=useAuthContext()
+    const location=useLocation()
+    const navigate=useNavigate()
     const {control,handleSubmit,formState:{errors}}=useForm({
         defaultValues:{
             review:''
@@ -14,6 +19,12 @@ const ReviewCreateFrom = ({id}) => {
     })
     const {create}=useReviewContext()
     const onSubmit=async(data)=>{
+
+        if(!access_token){
+        navigate('/login', { state: { from: location }, replace: true })
+        return
+      }
+      
        const {code,message}=await create({id,content:data.review})
        if(code === 201){
         toast.success(message)
@@ -29,7 +40,7 @@ const ReviewCreateFrom = ({id}) => {
                     render={({field})=><InputField size='small' label='Review' error={!! errors.review} helperText={errors.review?.message} {...field} />}
                 />
 
-                <ButtonField size='small'>Add Review</ButtonField>
+                <Button type='submit' sx={{height:'40px'}} variant='contained' size='small'>Add Review</Button>
             </Box>
         </form>
     )

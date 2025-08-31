@@ -12,7 +12,7 @@ const Header=()=>{
     }
     return (
         <Box sx={{display:'flex',justifyContent:'flex-end',p:2}}>
-            <Button onClick={handleLogout} variant="contained" size="small">Logout</Button>
+            <Button onClick={handleLogout} variant="contained" color="warning" size="small">Logout</Button>
         </Box>
     )
 }
