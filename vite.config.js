@@ -1,7 +1,8 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 
+// https://vite.dev/config/
 export default defineConfig({
+  base: "/library/",
   plugins: [react()],
-  base: "/library/", // 👈 IMPORTANT since you serve from /library/
 });
