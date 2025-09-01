@@ -8,9 +8,6 @@ import AdminLayout from "../layouts/AdminLayout";
 
 const App = () => {
   const { user, access_token } = useAuthContext();
-  fetch(`${import.meta.env.VITE_API_URL}/health`)
-    .then((res) => res.json())
-    .then((data) => console.log(data));
   return (
     <Routes>
       {/* user routes */}
